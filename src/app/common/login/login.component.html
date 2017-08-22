@@ -1,7 +1,13 @@
- <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="_submitForm()">
+ <div class="canvas-wrapper">
+   <canvas style="width: 100%; height: 100vh;" id="lg-bg"> </canvas>
+ </div>
+ 
+ <div class="login">
+
+ <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()" (click)="onClick(event)">
       <div nz-form-item>
-        <div nz-form-control [nzValidateStatus]="validateForm.controls.userName">
-          <nz-input formControlName="userName" [nzPlaceHolder]="'Username'" [nzSize]="'large'">
+        <div nz-form-control [nzValidateStatus]="validateForm.controls.userName" nzHasFeedback>
+          <nz-input formControlName="userName" [nzPlaceHolder]="'Username'" [nzSize]="'large'" >
             <ng-template #prefix>
               <i class="anticon anticon-user"></i>
             </ng-template>
@@ -10,8 +16,8 @@
         </div>
       </div>
       <div nz-form-item>
-        <div nz-form-control [nzValidateStatus]="validateForm.controls.password">
-          <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'Password'" [nzSize]="'large'">
+        <div nz-form-control [nzValidateStatus]="validateForm.controls.password" nzHasFeedback>
+          <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'Password'" [nzSize]="'large'" >
             <ng-template #prefix>
               <i class="anticon anticon-lock"></i>
             </ng-template>
@@ -24,10 +30,18 @@
           <label nz-checkbox formControlName="remember">
             <span>Remember me</span>
           </label>
-          <a class="login-form-forgot" class="login-form-forgot">Forgot password</a>
-          <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">Log in</button>
-          Or
-          <a href="">register now!</a>
+  
+        
+     
+         
         </div>
       </div>
+          <div nz-form-item>
+        <div nz-form-control>
+            <button nz-button class="login-form-button" [nzType]="'primary'" [nzSize]="'large'">Log in</button>
+                </div>
+      </div>
     </form>
+
+ </div>
+    

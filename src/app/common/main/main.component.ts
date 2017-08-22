@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
+import { Router,RouterOutlet,RouterLinkActive   } from '@angular/router';
 
 @Component({
     selector: 'pages-main',
     templateUrl: 'main.component.html',
-      styleUrls: ['main.component.css'],
-})
+      styleUrls: ['main.component.less'],
+})   
 
 export class MainComponent implements OnInit {
-    constructor() { }
+    isCollapsed = false;
 
-    ngOnInit() { }
+  constructor() {
+  }
+
+  ngOnInit() {
+  }
 }
