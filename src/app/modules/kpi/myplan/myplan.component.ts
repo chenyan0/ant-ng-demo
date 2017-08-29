@@ -7,12 +7,12 @@ import {
   Validators
 } from '@angular/forms';
 @Component({
-    selector: 'my-plan',
-    templateUrl: 'myplan.component.html'
+  selector: 'my-plan',
+  templateUrl: 'myplan.component.html'
 })
 
 export class MyPlanComponent implements OnInit {
-   _allChecked = false;
+  _allChecked = false;
   _disabledButton = true;
   _checkedNumber = 0;
   _displayData: Array<any> = [];
@@ -21,7 +21,8 @@ export class MyPlanComponent implements OnInit {
   _indeterminate = false;
   isVisible = false;
   isConfirmLoading = false;
-
+  operateName:string;
+  _selectData = {};
   validateForm: FormGroup;
   _displayDataChange($event) {
     this._displayData = $event;
@@ -54,62 +55,106 @@ export class MyPlanComponent implements OnInit {
     }, 1000);
   };
   _addData() {
+    this.operateName='add';
     this.isVisible = true;
+
   }
-  
+  _modifyData() {
+    this.operateName='md';
+    let arr = this._dataSet;
+    let item;
+    arr.map(function (data, index) {
+      if (data.checked) {
+        item = data;
+      }
+    })
+    this._selectData = item;
+    this.isVisible = true;
+
+    this.validateForm.setValue({
+        name: item.name,
+        standard:  item.standard,
+        weight: item.weight,
+        goal: item.goal,
+        Jan:  item.Jan,
+        Feb: item.Feb
+    });
+  }
+  _deleteData() {
+    let arr = this._dataSet;
+    arr.map(function (data, index) {
+      if (data.checked) {
+        arr.splice(index, 1);
+      }
+    })
+    this._dataSet = [].concat(arr);
+    this._refreshStatus();
+  }
 
 
   _submitForm() {
-      for (const i in this.validateForm.controls) {
-      this.validateForm.controls[ i ].markAsDirty();
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
     }
-    console.log(this.validateForm.value);
-  }
-  get isHorizontal() {
-    return this.validateForm.controls[ 'formLayout' ] && this.validateForm.controls[ 'formLayout' ].value === 'horizontal';
-  }
-      constructor(private fb: FormBuilder) {
-  }
-   handleOk = (e) => {
-    this.isConfirmLoading = true;
 
-       this._dataSet.push( {  
-            'name': 'ABC123'  
-        });
-       console.log(this._dataSet);
+  }
+
+  constructor(private fb: FormBuilder) {
+  }
+  handleOk = (e) => {
+    this.isConfirmLoading = true;
+    let formModel = this.validateForm.value;
+    if(this.operateName=='add'){
+      this._dataSet.push(formModel);
+      this._dataSet = [].concat(this._dataSet)  //改变数据引用地址
+    }else if(this.operateName=='md'){
+          console.log(formModel);
+
+    }
     setTimeout(() => {
+      this._dataSet.forEach(value => value.checked = false);
       this.isVisible = false;
       this.isConfirmLoading = false;
-    }, 3000);
+      this.validateForm.reset();
+        this._refreshStatus();
+    },1000)
+  
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsPristine();
+    }
   }
-
   handleCancel = (e) => {
     this.isVisible = false;
-  }
 
+     this.validateForm.reset();
+        for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsPristine();
+    }
+  }
+  _createForm(){
+      this.validateForm = this.fb.group({
+          name: [''],
+          standard: [''],
+          weight: [''],
+          goal: [''],
+          Jan: [''],
+          Feb: ['']
+        });
+    }
   ngOnInit() {
     for (let i = 0; i < 4; i++) {
       this._dataSet.push({
-        key    : i,
-        name   : `Edward King ${i}`,
-        weight    : 32,
+        key: i,
+        name: `Edward King ${i}`,
+        weight: 32,
         standard: `London, Park Lane no. ${i}`,
         goal: `London, Park Lane no. ${i}`,
         Jan: `London, Park Lane no. ${i}`,
         Feb: `London, Park Lane no. ${i}`,
-    
-        
+
+
       });
     }
-     this.validateForm = this.fb.group({
-        formLayout: [ 'horizontal' ],
-        name  : [ null, [ Validators.required ] ],
-        standard  : [ null, [ Validators.required ] ],
-        Jan  : [ null, [ Validators.required ] ],
-        Feb  : [ null, [ Validators.required ] ],
-        weight  : [ null, [ Validators.required ] ],
-        goal  : [ null, [ Validators.required ] ]
-      });
-     
+    this._createForm();
   }
 }

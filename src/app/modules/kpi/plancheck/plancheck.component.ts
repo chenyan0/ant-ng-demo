@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-
+import {
+  FormBuilder,
+  FormGroup,
+  FormControl,
+  Validators
+} from '@angular/forms';
 @Component({
     selector: 'plan-check',
     templateUrl: 'plancheck.component.html'
@@ -8,5 +13,7 @@ import { Component, OnInit } from '@angular/core';
 export class PlanCheckComponent implements OnInit {
     constructor() { }
 
-    ngOnInit() { }
+    ngOnInit() {
+        
+     }
 }
