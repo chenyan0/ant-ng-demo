@@ -3,7 +3,7 @@ import { Routes,RouterModule } from '@angular/router';
 import { ShareModule } from '../../share/share.module';  
 import { MyPlanComponent } from './myplan/myplan.component';
 import { PlanCheckComponent } from './plancheck/plancheck.component';
-
+import { NormService } from "../../service/norm.service";
 const routes: Routes = [
   { path: '', redirectTo:'myplan' },  
   { path: 'myplan', component: MyPlanComponent },  
@@ -16,6 +16,6 @@ const routes: Routes = [
     ],
     exports: [],
     declarations: [MyPlanComponent,PlanCheckComponent],
-    providers: [],
+    providers: [NormService],
 })
 export class KpiModule { }

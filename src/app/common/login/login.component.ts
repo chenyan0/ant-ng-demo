@@ -14,7 +14,7 @@ import {
 export class LoginComponent implements OnInit {
   config={"ballSize": 1,"speed": 1.1,"phaseRefX": 0.12,"phaseRefY": 0.12,"radiusX": 5,"radiusY": 17,"densityX": 4,"densityY": 4,"backgroundFrom": "#3d34a5","backgroundTo": "#221547","degree": 62,"ballColor": "#9085d6"}
 
-  validateForm: FormGroup;
+  loginForm: FormGroup;
   model: any = { username: '', password: '' };
 
   constructor(
@@ -26,19 +26,20 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     wavie('lg-bg', this.config)   
-    this.validateForm = this.fb.group({
+    this.loginForm = this.fb.group({
       userName: [ '', [ Validators.required ] ],
       password: [ '', [ Validators.required ] ],
       remember: [ true ],
     });
   }
   submitForm() {
-    // for (const i in this.validateForm.controls) {
-    //   this.validateForm.controls[ i ].markAsDirty();
+    // for (const i in this.loginForm.controls) {
+    //   this.loginForm.controls[ i ].markAsDirty();
     // }
    this.router.navigate(['/']); 
   }
-  onClick(event:any){
-     event.stopPropagation();
-  }
+  // onClick(event:any){
+  //   console.log(event);
+  //    event.stopPropagation();
+  // }
 }

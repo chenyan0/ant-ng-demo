@@ -10,7 +10,7 @@ const routes :Routes=[
     loadChildren: '../modules/kpi/kpi.module#KpiModule' ,
   },
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'kpi', pathMatch: 'full' },
   { path: '**', redirectTo: 'kpi', pathMatch: 'full' }
 ]
 

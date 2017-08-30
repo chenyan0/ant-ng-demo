@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators
-} from '@angular/forms';
+import { Norm, norms } from './data-model';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { NormService } from "../../../service/norm.service";
 @Component({
   selector: 'my-plan',
   templateUrl: 'myplan.component.html'
 })
 
 export class MyPlanComponent implements OnInit {
+  norm: Norm;
   _allChecked = false;
   _disabledButton = true;
   _checkedNumber = 0;
@@ -21,9 +18,9 @@ export class MyPlanComponent implements OnInit {
   _indeterminate = false;
   isVisible = false;
   isConfirmLoading = false;
-  operateName:string;
+  operateName: string;
   _selectData = {};
-  validateForm: FormGroup;
+  normForm: FormGroup;
   _displayDataChange($event) {
     this._displayData = $event;
   };
@@ -55,12 +52,12 @@ export class MyPlanComponent implements OnInit {
     }, 1000);
   };
   _addData() {
-    this.operateName='add';
+    this.operateName = 'add';
     this.isVisible = true;
 
   }
   _modifyData() {
-    this.operateName='md';
+    this.operateName = 'md';
     let arr = this._dataSet;
     let item;
     arr.map(function (data, index) {
@@ -71,90 +68,86 @@ export class MyPlanComponent implements OnInit {
     this._selectData = item;
     this.isVisible = true;
 
-    this.validateForm.setValue({
-        name: item.name,
-        standard:  item.standard,
-        weight: item.weight,
-        goal: item.goal,
-        Jan:  item.Jan,
-        Feb: item.Feb
+    this.normForm.setValue({
+      name: item.name,
+      standard: item.standard,
+      weight: item.weight,
+      goal: item.goal,
+      Jan: item.Jan,
+      Feb: item.Feb
     });
   }
   _deleteData() {
-    let arr = this._dataSet;
-    arr.map(function (data, index) {
-      if (data.checked) {
-        arr.splice(index, 1);
+    let _dataSet = [];
+    this._dataSet.forEach(value => {
+      if (!value.checked) {
+        _dataSet.push(value);
       }
     })
-    this._dataSet = [].concat(arr);
+    this._dataSet = [].concat(_dataSet);
     this._refreshStatus();
   }
 
 
   _submitForm() {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
+    for (const i in this.normForm.controls) {
+      this.normForm.controls[i].markAsDirty();
     }
 
   }
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private normService: NormService
+  ) {
   }
   handleOk = (e) => {
     this.isConfirmLoading = true;
-    let formModel = this.validateForm.value;
-    if(this.operateName=='add'){
+    let formModel = this.normForm.value;
+    if (this.operateName == 'add') {
       this._dataSet.push(formModel);
       this._dataSet = [].concat(this._dataSet)  //改变数据引用地址
-    }else if(this.operateName=='md'){
-          console.log(formModel);
+    } else if (this.operateName == 'md') {
+      this._dataSet = [].concat(this._dataSet);
+
+      console.log(this._dataSet);
 
     }
     setTimeout(() => {
       this._dataSet.forEach(value => value.checked = false);
       this.isVisible = false;
       this.isConfirmLoading = false;
-      this.validateForm.reset();
-        this._refreshStatus();
-    },1000)
-  
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsPristine();
+      this.normForm.reset();
+      this._refreshStatus();
+    }, 1000)
+
+    for (const i in this.normForm.controls) {
+      this.normForm.controls[i].markAsPristine();
     }
   }
   handleCancel = (e) => {
     this.isVisible = false;
 
-     this.validateForm.reset();
-        for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsPristine();
+    this.normForm.reset();
+    for (const i in this.normForm.controls) {
+      this.normForm.controls[i].markAsPristine();
     }
   }
-  _createForm(){
-      this.validateForm = this.fb.group({
-          name: [''],
-          standard: [''],
-          weight: [''],
-          goal: [''],
-          Jan: [''],
-          Feb: ['']
-        });
-    }
+  _createForm() {
+    this.normForm = this.fb.group({
+      name: [''],
+      standard: [''],
+      weight: [''],
+      goal: [''],
+      Jan: [''],
+      Feb: ['']
+    });
+  }
+  _getNorms() {
+    this.normService.getNormsSlowly().then(norms => this._dataSet = norms);
+  }
   ngOnInit() {
-    for (let i = 0; i < 4; i++) {
-      this._dataSet.push({
-        key: i,
-        name: `Edward King ${i}`,
-        weight: 32,
-        standard: `London, Park Lane no. ${i}`,
-        goal: `London, Park Lane no. ${i}`,
-        Jan: `London, Park Lane no. ${i}`,
-        Feb: `London, Park Lane no. ${i}`,
-
-
-      });
-    }
+    this._getNorms();
     this._createForm();
   }
 }

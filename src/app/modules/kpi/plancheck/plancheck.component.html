@@ -2,39 +2,4 @@
             <nz-breadcrumb-item>KPI考核</nz-breadcrumb-item>
             <nz-breadcrumb-item>KPI绩效计划审核</nz-breadcrumb-item>
           </nz-breadcrumb>
-          <div style="padding:24px; background: #fff; min-height: 360px;">
-  <div style="margin-bottom: 16px;">
-    <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_addData()">增加指标</button>
-    <button nz-button [disabled]="_disabledButton" [nzType]="'primary'" [nzLoading]="_operating" (click)="_modifyData()">修改指标</button>
-    <button nz-button [disabled]="_disabledButton" [nzType]="'primary'" [nzLoading]="_operating" (click)="_deleteData()">删除指标</button>
-    <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()">保存绩效计划</button>
-    <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()">提交上级审核</button>
-    <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()">下载导入模板</button>
-    <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()">导入年度计划</button>
-    <span style="margin-left: 8px;" *ngIf="_checkedNumber">Selected {{_checkedNumber}} items</span>
-  </div>
-  <form nz-form [nzLayout]="validateForm.controls?.formLayout?.value" [formGroup]="validateForm" #f="ngForm" (ngSubmit)="_submitForm(f.value)">
-        <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSpan]="isHorizontal?4:false">
-            <label>KPI指标</label>
-          </div>
-          <div nz-form-control nz-col [nzSpan]="isHorizontal?14:false" [nzValidateStatus]="validateForm.controls.name">
-            <nz-input formControlName="name" [nzPlaceHolder]="'请输入'" [nzSize]="'large'">
-            </nz-input>
-            <div nz-form-explain *ngIf="validateForm.controls.name.dirty&&validateForm.controls.name.hasError('required')">Please input your username!</div>
-          </div>
-        </div>
-         <div nz-form-item nz-row>
-          <div nz-form-label nz-col [nzSpan]="isHorizontal?4:false">
-            <label>权重</label>
-          </div>
-          <div nz-form-control nz-col [nzSpan]="isHorizontal?14:false" [nzValidateStatus]="validateForm.controls.weight">
-            <nz-input formControlName="weight" [nzPlaceHolder]="'请输入'" [nzSize]="'large'">
-            </nz-input>
-            <div nz-form-explain *ngIf="validateForm.controls.weight.dirty&&validateForm.controls.weight.hasError('required')">Please input your username!</div>
-          </div>
-        </div>
-
-       <p>Form value: {{ validateForm.value | json }}</p>
-      </form>
-          </div>
+        
