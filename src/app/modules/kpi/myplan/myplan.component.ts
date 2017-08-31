@@ -21,6 +21,8 @@ export class MyPlanComponent implements OnInit {
   operateName: string;
   _selectData = {};
   normForm: FormGroup;
+  updateItem: any;
+
   _displayDataChange($event) {
     this._displayData = $event;
   };
@@ -59,23 +61,24 @@ export class MyPlanComponent implements OnInit {
   _modifyData() {
     this.operateName = 'md';
     let arr = this._dataSet;
-    let item;
-    arr.map(function (data, index) {
+    arr.map((data, index) => {
       if (data.checked) {
-        item = data;
+        this.updateItem = data;
       }
     })
-    this._selectData = item;
+    this._selectData = this.updateItem;
     this.isVisible = true;
 
     this.normForm.setValue({
-      name: item.name,
-      standard: item.standard,
-      weight: item.weight,
-      goal: item.goal,
-      Jan: item.Jan,
-      Feb: item.Feb
+      name: this.updateItem.name,
+      standard: this.updateItem.standard,
+      weight: this.updateItem.weight,
+      goal: this.updateItem.goal,
+      Jan: this.updateItem.Jan,
+      Feb: this.updateItem.Feb
     });
+
+    console.log(this._dataSet);
   }
   _deleteData() {
     let _dataSet = [];
@@ -106,12 +109,16 @@ export class MyPlanComponent implements OnInit {
     let formModel = this.normForm.value;
     if (this.operateName == 'add') {
       this._dataSet.push(formModel);
-      this._dataSet = [].concat(this._dataSet)  //改变数据引用地址
+      this._dataSet = [].concat(this._dataSet)  //改变数据引用地址     
     } else if (this.operateName == 'md') {
-      this._dataSet = [].concat(this._dataSet);
-
-      console.log(this._dataSet);
-
+      for (let d of this._dataSet) {
+          if(d.id == this.updateItem.id) {
+            // d = Object.assign({},formModel);
+            for(let a in formModel) {   
+              d[a] = formModel[a];  
+            }
+          }
+        } 
     }
     setTimeout(() => {
       this._dataSet.forEach(value => value.checked = false);
@@ -125,6 +132,7 @@ export class MyPlanComponent implements OnInit {
       this.normForm.controls[i].markAsPristine();
     }
   }
+
   handleCancel = (e) => {
     this.isVisible = false;
 
