@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Norm } from "../modules/kpi/myplan/data-model";
-import { norms } from "../modules/kpi/myplan/data-model";
+import { Norm } from "../modules/kpi/pages/myplan/data-model";
+import { norms } from "../modules/kpi/pages/myplan/data-model";
 @Injectable()
 export class NormService {
 
@@ -11,7 +11,8 @@ export class NormService {
     }
     getNormsSlowly():Promise<Norm[]>{
        return new Promise(resolve=>{
-           setTimeout(()=>{
+           setTimeout(()=>
+           {
                resolve(this.getNorms()),2000
            })
        })

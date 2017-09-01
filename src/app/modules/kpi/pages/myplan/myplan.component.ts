@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Norm, norms } from './data-model';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { NormService } from "../../../service/norm.service";
+import { NormService } from "../../../../service/norm.service";
+import { NzModalService } from 'ng-zorro-antd';
+import { ModalOperateNormComponent } from '../../modals/modal-operate-norm/modal-operate-norm.component';
 @Component({
   selector: 'my-plan',
   templateUrl: 'myplan.component.html'
@@ -22,7 +24,7 @@ export class MyPlanComponent implements OnInit {
   _selectData = {};
   normForm: FormGroup;
   updateItem: any;
-
+  currentModal;
   _displayDataChange($event) {
     this._displayData = $event;
   };
@@ -56,7 +58,7 @@ export class MyPlanComponent implements OnInit {
   _addData() {
     this.operateName = 'add';
     this.isVisible = true;
-
+    this.showOperateModal();
   }
   _modifyData() {
     this.operateName = 'md';
@@ -67,16 +69,16 @@ export class MyPlanComponent implements OnInit {
       }
     })
     this._selectData = this.updateItem;
-    this.isVisible = true;
-
-    this.normForm.setValue({
-      name: this.updateItem.name,
-      standard: this.updateItem.standard,
-      weight: this.updateItem.weight,
-      goal: this.updateItem.goal,
-      Jan: this.updateItem.Jan,
-      Feb: this.updateItem.Feb
-    });
+    // this.isVisible = true;
+    this.showOperateModal();
+    // this.normForm.setValue({
+    //   name: this.updateItem.name,
+    //   standard: this.updateItem.standard,
+    //   weight: this.updateItem.weight,
+    //   goal: this.updateItem.goal,
+    //   Jan: this.updateItem.Jan,
+    //   Feb: this.updateItem.Feb
+    // });
 
     console.log(this._dataSet);
   }
@@ -90,7 +92,25 @@ export class MyPlanComponent implements OnInit {
     this._dataSet = [].concat(_dataSet);
     this._refreshStatus();
   }
-
+  showOperateModal() {
+    const subscription = this.modalService.open({
+      title: '对话框标题',
+      content: ModalOperateNormComponent,
+      onOk() {
+        
+      },
+      onCancel() {
+        
+      },
+      footer: false,
+      componentParams: {
+        name: '测试渲染Component'
+      }
+    });
+    subscription.subscribe(result => {
+      console.log(result);
+    })
+  }
 
   _submitForm() {
     for (const i in this.normForm.controls) {
@@ -101,7 +121,8 @@ export class MyPlanComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private normService: NormService
+    private normService: NormService,
+    private modalService: NzModalService
   ) {
   }
   handleOk = (e) => {
@@ -112,13 +133,14 @@ export class MyPlanComponent implements OnInit {
       this._dataSet = [].concat(this._dataSet)  //改变数据引用地址     
     } else if (this.operateName == 'md') {
       for (let d of this._dataSet) {
-          if(d.id == this.updateItem.id) {
-            // d = Object.assign({},formModel);
-            for(let a in formModel) {   
-              d[a] = formModel[a];  
-            }
+        console.log(d.id);
+        if (d.id == this.updateItem.id) {
+          // d = Object.assign({},formModel);
+          for (let a in formModel) {
+            d[a] = formModel[a];
           }
-        } 
+        }
+      }
     }
     setTimeout(() => {
       this._dataSet.forEach(value => value.checked = false);
