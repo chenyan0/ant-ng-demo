@@ -9,7 +9,7 @@ import { NzModalSubject } from 'ng-zorro-antd';
 export class ModalOperateNormComponent implements OnInit {
     normForm: FormGroup;
     updateItem: any;
-    _name: string;
+    _name: string; 
 
     @Input()
     set name(value: string) {
