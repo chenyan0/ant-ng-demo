@@ -9,6 +9,7 @@ import { RoleController } from './setting/role.controller';
 import { TaskController } from './task/task.controller';
 import { ThreatenController } from './threaten/threaten.controller';
 import { WeakPasswordController } from './threaten/weak-password.controller';
+import { KpiController } from './kpi/kpi.controller'
 
 @Module({
     controllers: [
@@ -19,7 +20,8 @@ import { WeakPasswordController } from './threaten/weak-password.controller';
         RoleController, 
         TaskController,
         ThreatenController,
-        WeakPasswordController
+        WeakPasswordController,
+        KpiController
     ],
 })
 export class ApplicationModule {

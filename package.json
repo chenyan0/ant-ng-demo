@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "mock": "ng serve --host=0.0.0.0 --port=8888 --disable-host-check & nodemon -e ts --watch mock ./mock/index.js"
+    "mock": "nodemon -e ts --watch mock ./mock/index.js"
   },
   "private": true,
   "dependencies": {
