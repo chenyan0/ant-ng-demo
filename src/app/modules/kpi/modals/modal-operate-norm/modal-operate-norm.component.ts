@@ -13,12 +13,14 @@ export class ModalOperateNormComponent implements OnInit {
 
     @Input()
     set name(value: string) {
-        this._name = value;
+        this._name = value; 
     }
+
     constructor(
         private fb: FormBuilder,
         private subject: NzModalSubject,
     ) { }
+
     _submitForm() {
         for (const i in this.normForm.controls) {
             this.normForm.controls[i].markAsDirty();
@@ -54,8 +56,8 @@ export class ModalOperateNormComponent implements OnInit {
   }
 
     ngOnInit() {
-        this._setValue();
         this._createForm();
+        this._setValue();
 
 
     }
