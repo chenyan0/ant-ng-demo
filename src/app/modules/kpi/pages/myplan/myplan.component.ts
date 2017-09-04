@@ -58,7 +58,7 @@ export class MyPlanComponent implements OnInit {
   _addData() {
     this.operateName = 'add';
     this.isVisible = true;
-    this.showOperateModal();
+    this.showOperateModal('');
   }
   _modifyData() {
     this.operateName = 'md';
@@ -69,18 +69,9 @@ export class MyPlanComponent implements OnInit {
       }
     })
     this._selectData = this.updateItem;
-    // this.isVisible = true;
-    this.showOperateModal();
-    // this.normForm.setValue({
-    //   name: this.updateItem.name,
-    //   standard: this.updateItem.standard,
-    //   weight: this.updateItem.weight,
-    //   goal: this.updateItem.goal,
-    //   Jan: this.updateItem.Jan,
-    //   Feb: this.updateItem.Feb
-    // });
+    this.showOperateModal(this._selectData );
 
-    console.log(this._dataSet);
+
   }
   _deleteData() {
     let _dataSet = [];
@@ -92,7 +83,7 @@ export class MyPlanComponent implements OnInit {
     this._dataSet = [].concat(_dataSet);
     this._refreshStatus();
   }
-  showOperateModal() {
+  showOperateModal(data) {
     const subscription = this.modalService.open({
       title: '对话框标题',
       content: ModalOperateNormComponent,
@@ -104,11 +95,12 @@ export class MyPlanComponent implements OnInit {
       },
       footer: false,
       componentParams: {
-        name: '测试渲染Component'
+        name: '测试渲染Component',
+        updateItem:data,
+        dataset:this._dataSet
       }
     });
     subscription.subscribe(result => {
-      console.log(result);
     })
   }
 
@@ -125,44 +117,7 @@ export class MyPlanComponent implements OnInit {
     private modalService: NzModalService
   ) {
   }
-  handleOk = (e) => {
-    this.isConfirmLoading = true;
-    let formModel = this.normForm.value;
-    if (this.operateName == 'add') {
-      this._dataSet.push(formModel);
-      this._dataSet = [].concat(this._dataSet)  //改变数据引用地址     
-    } else if (this.operateName == 'md') {
-      for (let d of this._dataSet) {
-        console.log(d.id);
-        if (d.id == this.updateItem.id) {
-          // d = Object.assign({},formModel);
-          for (let a in formModel) {
-            d[a] = formModel[a];
-          }
-        }
-      }
-    }
-    setTimeout(() => {
-      this._dataSet.forEach(value => value.checked = false);
-      this.isVisible = false;
-      this.isConfirmLoading = false;
-      this.normForm.reset();
-      this._refreshStatus();
-    }, 1000)
 
-    for (const i in this.normForm.controls) {
-      this.normForm.controls[i].markAsPristine();
-    }
-  }
-
-  handleCancel = (e) => {
-    this.isVisible = false;
-
-    this.normForm.reset();
-    for (const i in this.normForm.controls) {
-      this.normForm.controls[i].markAsPristine();
-    }
-  }
   _createForm() {
     this.normForm = this.fb.group({
       name: [''],
@@ -175,9 +130,10 @@ export class MyPlanComponent implements OnInit {
   }
   _getNorms() {
     this.normService.getNormsSlowly().then(norms => this._dataSet = norms);
+    console.log(this._dataSet);
   }
   ngOnInit() {
     this._getNorms();
-    this._createForm();
+    // this._createForm();
   }
 }

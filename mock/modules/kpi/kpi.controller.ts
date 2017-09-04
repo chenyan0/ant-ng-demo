@@ -10,8 +10,12 @@ export class KpiController {
     res.status(HttpStatus.OK).json(   
       MockTool.page({
         'data|6': [{  
-          'keyword': '@cword(3,5)',
-          'time': '@datetime(T)'
+          'id': '@cword(3,5)',
+          'name': '@datetime(T)',
+          'standard': '@datetime(T)',
+          'weight': '@datetime(T)',
+          'Jan': '@datetime(T)',
+          'Feb': '@datetime(T)'
         }]
       })
     );
