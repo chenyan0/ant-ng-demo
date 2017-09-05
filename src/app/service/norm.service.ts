@@ -1,32 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Norm } from "../modules/kpi/pages/myplan/data-model";
 import { norms } from "../modules/kpi/pages/myplan/data-model";
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { HttpParams } from "@angular/common/http";
 @Injectable()
 export class NormService {
     private normsUrl = 'http://localhost:3032/kpi/list';  // URL to web api
 
-    constructor(private http: Http) { }
-    private handleError(error: any): Promise<any> {
-        console.error('An error occurred', error); // for demo purposes only
-        return Promise.reject(error.message || error);
-    }
-    getNorms(): Promise<Norm[]> {
+    constructor(private http: HttpClient) { }
 
-        //    return Promise.resolve(norms);
-        return this.http.get(this.normsUrl).toPromise().then(
-            response =>{
-                 response.json().data as Norm[];
-            console.log(response.json().data);
-            }
-        ).catch(this.handleError);
+    getNorms(current, pageSize) {
+        const params = new HttpParams().set('current', current).set('pageSize', pageSize);
+        return this.http.get(this.normsUrl, { params });
+       
     }
-
-    getNormsSlowly(): Promise<Norm[]> {
-        return new Promise(resolve => {
-            setTimeout(() => {
-                resolve(this.getNorms()), 2000
-            })
-        })
-    }
-}
+    
+}    

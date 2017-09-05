@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http';
 import { Norm, norms } from './data-model';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NormService } from "../../../../service/norm.service";
@@ -16,7 +17,11 @@ export class MyPlanComponent implements OnInit {
   _checkedNumber = 0;
   _displayData: Array<any> = [];
   _operating = false;
+  _current = 1;
+  _pageSize = 10;
+  _total = 1;
   _dataSet = [];
+  _loading = true;
   _indeterminate = false;
   isVisible = false;
   isConfirmLoading = false;
@@ -28,14 +33,26 @@ export class MyPlanComponent implements OnInit {
   _displayDataChange($event) {
     this._displayData = $event;
   };
+  _refreshData() {
+    this._loading = true;
+    this.normService.getNorms(this._current, this._pageSize).subscribe((res: any) => {
+      this._loading = false;
+      this._total = 200;
+      console.log(res.data.data)
+      this._dataSet = res.data.data
+    })
 
+    this._refreshStatus();
+  }
   _refreshStatus() {
     const allChecked = this._displayData.every(value => value.checked === true);
     const allUnChecked = this._displayData.every(value => !value.checked);
     this._allChecked = allChecked;
     this._indeterminate = (!allChecked) && (!allUnChecked);
     this._disabledButton = !this._dataSet.some(value => value.checked);
-    this._checkedNumber = this._dataSet.filter(value => value.checked).length;
+
+
+
   };
 
   _checkAll(value) {
@@ -69,7 +86,7 @@ export class MyPlanComponent implements OnInit {
       }
     })
     this._selectData = this.updateItem;
-    this.showOperateModal(this._selectData );
+    this.showOperateModal(this._selectData);
 
 
   }
@@ -88,16 +105,16 @@ export class MyPlanComponent implements OnInit {
       title: '对话框标题',
       content: ModalOperateNormComponent,
       onOk() {
-        
+
       },
       onCancel() {
-        
+
       },
       footer: false,
       componentParams: {
         name: '测试渲染Component',
-        updateItem:data,
-        dataset:this._dataSet
+        updateItem: data,
+        dataset: this._dataSet
       }
     });
     subscription.subscribe(result => {
@@ -118,22 +135,7 @@ export class MyPlanComponent implements OnInit {
   ) {
   }
 
-  _createForm() {
-    this.normForm = this.fb.group({
-      name: [''],
-      standard: [''],
-      weight: [''],
-      goal: [''],
-      Jan: [''],
-      Feb: ['']
-    });
-  }
-  _getNorms() {
-    this.normService.getNormsSlowly().then(norms => this._dataSet = norms);
-    console.log(this._dataSet);
-  }
   ngOnInit() {
-    this._getNorms();
-    // this._createForm();
+    this._refreshData();
   }
-}
+}     
