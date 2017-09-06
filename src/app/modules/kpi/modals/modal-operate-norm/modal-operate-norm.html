@@ -1,7 +1,5 @@
- <!--<nz-modal [nzVisible]="isVisible" [nzTitle]="operateName=='add' ? '添加指标':'修改指标'" [nzContent]="modalContent" (nzOnCancel)="handleCancel($event)" (nzOnOk)="handleOk($event)"
-    [nzConfirmLoading]="isConfirmLoading">-->
-    <!--<ng-template #modalContent>-->
-      <form nz-form [nzLayout]="horizontal" [formGroup]="normForm" #f="ngForm" (ngSubmit)="_submitForm(f.value)">
+
+      <form nz-form [nzLayout]="horizontal" [formGroup]="normForm" #f="ngForm" (ngSubmit)="_submitForm() ">
         <div nz-form-item nz-row>
           <div nz-form-label nz-col [nzSpan]="4">
             <label>KPI指标</label>
@@ -62,15 +60,9 @@
             <div nz-form-explain *ngIf="getFormControl('Feb').dirty&&getFormControl('Feb').hasError('required')">Please input your username!</div>
           </div>
         </div>
-        <div class="customize-footer">
-        <button nz-button [nzType]="'primary'" [nzSize]="'large'" (click)="handleOk($event)">
-          传递数据到上层
-        </button>
-        <button nz-button [nzType]="'default'" [nzSize]="'large'" (click)="handleCancel($event)">
-          返 回
-        </button>
+        <div class="customize-modal-footer ">
+        <button nz-button [nzType]="'default'" type="button" (click)="onCancel()">返 回</button>
+        <button nz-button [nzType]="'primary'" type="submit" [nzLoading]="submitted">确定</button>
       </div>
        <p>Form value: {{ normForm.value | json }}</p>
       </form>
-    <!--</ng-template>-->
-  <!--</nz-modal>-->

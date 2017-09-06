@@ -4,95 +4,69 @@ import { MockTool } from '../mock.class';;
 
 @Controller('kpi')
 export class KpiController {
-
+  normBo = {
+    "id|+1": 1,
+    'name': '@cword(3,5)',
+    "weight|1-100": 100,
+    'standard': '@cword(3,15)',
+    'goal': '@cword(3,15)',
+    'Jan': '@cword(3,15)',
+    'Feb': '@cword(3,15)'
+  };
+   /**
+   * 指标列表
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   * @memberof KpiController
+   */
   @Get('list') 
   public async keys(req, res) {
     res.status(HttpStatus.OK).json(   
       MockTool.page({
-        'data|6': [{  
-           "id|+1": 1,
-          'name': '@cword(3,5)',
-          "weight|1-100": 100,
-          'standard': '@cword(3,15)',
-          'goal': '@cword(3,15)',
-          'Jan': '@cword(3,15)',
-          'Feb': '@cword(3,15)'
-        }]
+        'data|6': [this.normBo]
       })
     );
   }
-
-  @Post('keyword')
-  public async keyword(req, res) {
+   /**
+   * 新增指标
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   * @memberof KpiController
+   */
+ @Post('add')
+  public async add(req, res) {
     res.status(HttpStatus.OK).json(
-      MockTool.mock({})
+      MockTool.mock(null)
     );
   }
-
-  @Post('repo/query/:id')
-  public async repos(req, res) {
+ /**
+   * 删除指标
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   * @memberof KpiController
+   */
+  @Get('delete')
+  public async delete(req, res) {
     res.status(HttpStatus.OK).json(
-      MockTool.page({
-        'data|18': [{
-          'repoId|+1': 1,
-          'owner': '@cword(3,5)',
-          'ownerEmail': '@email',
-          'repositoryName': '@cword(3,5)',
-          'repositoryUrl': '@url()',
-          'scanTime': '@datetime(T)',
-          'submitter': '@cword(3,5)',
-          'keyword': '@cword(3,5)'
-        }]
-      })
+      MockTool.mock(null)
     );
   }
-
-
-  @Post('repo/cancel/query')
-  public async cancelList(req, res) {
+  /**
+   * 新增指标
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   * @memberof KpiController
+   */
+ @Post('update')
+  public async update(req, res) {
     res.status(HttpStatus.OK).json(
-      MockTool.page({
-        'data|18': [{
-          'repoId|+1': 1,
-          'owner': '@cword(3,5)',
-          'ownerEmail': '@email',
-          'repositoryName': '@cword(3,5)',
-          'repositoryUrl': '@url()',
-          'scanTime': '@datetime(T)',
-          'submitter': '@cword(3,5)',
-          'keyword': '@cword(3,5)'
-        }]
-      })
+      MockTool.mock(null)
     );
   }
 
 
-  @Get('repo/cancel')
-  public async cancel(req, res) {
-    res.status(HttpStatus.OK).json(
-      MockTool.mock({})
-    );
-  }
-
-  @Post('repo/code/query')
-  public async codeList(req, res) {
-    res.status(HttpStatus.OK).json(
-      MockTool.page({
-        'data|2': [{
-          'repoId|+1': 1,
-          'fileName': '@cword(3,5)',
-          'fileUrl': '@url()',
-          'scanTime': '@datetime(T)',  
-          "secKeyword": 'div', 
-          "code": [   
-            {
-              "27": " <div class=\"col-lg-6\">",
-              "28": " <strong>Grafico</strong>",
-              "29": "</div>"
-            }
-          ]
-        }]
-      })
-    );
-  }
 }

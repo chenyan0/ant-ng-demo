@@ -1,107 +1,102 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { NzModalSubject } from 'ng-zorro-antd';
+import { NzModalSubject,NzMessageService } from 'ng-zorro-antd';
+import { NormService } from "../../../../service/norm.service";
+
 @Component({
     selector: 'modal-op-norm',
-    templateUrl: 'modal-operate-norm.html'
+    templateUrl: 'modal-operate-norm.html',
+    styles: [
+        `
+       .customize-modal-footer {
+    border-top: 1px solid #e9e9e9;
+    padding: 10px 18px 0 10px;
+    text-align: right;
+    border-radius: 0;
+    margin: 15px -16px -5px -16px;
+}
+    `
+    ]
+
 })
 
 export class ModalOperateNormComponent implements OnInit {
     normForm: FormGroup;
     _updateItem: any;
-    _name: string;
+    _type: string;
     isConfirmLoading = false;
-    operateName: string;
     isVisible = false;
     _dataSet = [];
+    submitted: boolean = false;
     @Input()
-    set name(value: string) {
-        this._name = value;
+    set type(value: string) {
+        this._type = value;
     }
     @Input()
     set updateItem(value: any) {
         this._updateItem = value;
     }
-    @Input()
-    set dataSet(value: any) {
-        this._dataSet = value;
-    }
+
     constructor(
         private fb: FormBuilder,
+        private normService: NormService,
         private subject: NzModalSubject,
+        private nms:NzMessageService
     ) { }
 
     _submitForm() {
         for (const i in this.normForm.controls) {
             this.normForm.controls[i].markAsDirty();
         }
-
-    }
-    handleOk = (e) => {
-        console.log(this._dataSet);
-        this.isConfirmLoading = true;
-        let formModel = this.normForm.value;
-        if (this.operateName == 'add') {
-            this._dataSet.push(formModel);
-            this._dataSet = [].concat(this._dataSet)  //改变数据引用地址     
-        } else if (this.operateName == 'md') {
-            for (let d of this._dataSet) {
-                console.log(d.id);
-                if (d.id == this.updateItem.id) {
-                    for (let a in formModel) {
-                        d[a] = formModel[a];
-                    }
+        this.submitted = true;
+        if (this._type == 'add') {
+            this.normService.addNorm(this.getFormControl('name').value, this.getFormControl('weight').value, this.getFormControl('standard').value, this.getFormControl('goal').value, this.getFormControl('Jan').value, this.getFormControl('Feb').value, ).subscribe(d => {
+                if (d) {
+                      this.nms.success('新增指标成功！');
+                    this.subject.next(true);
+                    this.onCancel();
                 }
-            }
+                this.submitted = false;
+            }, () => { this.submitted = false; });   
+        } else if (this._type == 'modify') {
+            this.normService.updateNorm(this.getFormControl('name').value, this.getFormControl('weight').value, this.getFormControl('standard').value, this.getFormControl('goal').value, this.getFormControl('Jan').value, this.getFormControl('Feb').value, ).subscribe(d => {
+                if (d) {
+                      this.nms.success('修改指标成功！');
+                    this.subject.next(true);
+                    this.onCancel();
+                }
+                this.submitted = false;
+            }, () => { this.submitted = false; });
         }
-        setTimeout(() => {
-            this._dataSet.forEach(value => value.checked = false);
-            this.isVisible = false;
-            this.isConfirmLoading = false;
-            this.normForm.reset();
-            //   this._refreshStatus();
-        }, 1000)
-
-        for (const i in this.normForm.controls) {
-            this.normForm.controls[i].markAsPristine();
-        }
-        this.subject.destroy('onOk');
     }
 
-    handleCancel(e) {
-        this.isVisible = false;
 
-        this.normForm.reset();
-        for (const i in this.normForm.controls) {
-            this.normForm.controls[i].markAsPristine();
-        }
+
+
+    /**
+     * 关闭modal
+     * 
+     * @memberof ModalOperateNormComponent
+     */
+    onCancel() {
         this.subject.destroy('onCancel');
     }
-
-
-
+    /**
+     * 表单赋值
+     * 
+     * @memberof ModalOperateNormComponent
+     */
     _setValue() {
-        let data = this._updateItem;
-        if (data == '') {
-            this.normForm.setValue({
-                name: '',
-                standard: '',
-                weight: '',
-                goal: '',
-                Jan: '',
-                Feb: ''
-            });
+        const data = this._updateItem;
+        this.normForm.setValue({
+            name: data == '' ? '' : data.name,
+            standard: data == '' ? '' : data.standard,
+            weight: data == '' ? '' : data.weight,
+            goal: data == '' ? '' : data.goal,
+            Jan: data == '' ? '' : data.Jan,
+            Feb: data == '' ? '' : data.Feb
+        });
 
-        } else {
-            this.normForm.setValue({
-                name: data.name,
-                standard: data.standard,
-                weight: data.weight,
-                goal: data.goal,
-                Jan: data.Jan,
-                Feb: data.Feb
-            });
-        }
 
     }
     _createForm() {

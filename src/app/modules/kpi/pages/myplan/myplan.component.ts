@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Http } from '@angular/http';
-import { Norm, norms } from './data-model';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { NzModalService, NzModalSubject } from 'ng-zorro-antd';
+import { Norm, norms } from './data-model';
 import { NormService } from "../../../../service/norm.service";
-import { NzModalService } from 'ng-zorro-antd';
 import { ModalOperateNormComponent } from '../../modals/modal-operate-norm/modal-operate-norm.component';
 @Component({
   selector: 'my-plan',
@@ -13,33 +13,31 @@ import { ModalOperateNormComponent } from '../../modals/modal-operate-norm/modal
 export class MyPlanComponent implements OnInit {
   norm: Norm;
   _allChecked = false;
+  _indeterminate = false;
   _disabledButton = true;
-  _checkedNumber = 0;
-  _displayData: Array<any> = [];
+  _displayData = [];
   _operating = false;
   _current = 1;
-  _pageSize = 10;
-  _total = 1;
+  _pageSize =10;
+  _total = 100;
   _dataSet = [];
   _loading = true;
-  _indeterminate = false;
-  isVisible = false;
+
   isConfirmLoading = false;
   operateName: string;
   _selectData = {};
   normForm: FormGroup;
   updateItem: any;
-  currentModal;
   _displayDataChange($event) {
     this._displayData = $event;
+
   };
   _refreshData() {
     this._loading = true;
     this.normService.getNorms(this._current, this._pageSize).subscribe((res: any) => {
       this._loading = false;
-      this._total = 200;
-      console.log(res.data.data)
-      this._dataSet = res.data.data
+
+      this._dataSet = res.data.data;
     })
 
     this._refreshStatus();
@@ -74,9 +72,9 @@ export class MyPlanComponent implements OnInit {
   };
   _addData() {
     this.operateName = 'add';
-    this.isVisible = true;
     this.showOperateModal('');
   }
+
   _modifyData() {
     this.operateName = 'md';
     let arr = this._dataSet;
@@ -90,46 +88,44 @@ export class MyPlanComponent implements OnInit {
 
 
   }
-  _deleteData() {
-    let _dataSet = [];
+  _deleteData(row: Norm) {
     this._dataSet.forEach(value => {
-      if (!value.checked) {
-        _dataSet.push(value);
+      if (value.checked) {
+        this.normService.deleteNorm(value.id).subscribe(d => {
+          if (d) {
+            this._refreshData();
+          }
+        });
       }
     })
-    this._dataSet = [].concat(_dataSet);
-    this._refreshStatus();
+
+  }
+
+  getFormControl(name) {
+    return this.normForm.controls[name];
   }
   showOperateModal(data) {
+    const tit = (data == '') ? '新增指标' : '修改指标';
+    const type = (data == '') ? 'add' : 'modify';
     const subscription = this.modalService.open({
-      title: '对话框标题',
+      title: tit,
       content: ModalOperateNormComponent,
-      onOk() {
-
-      },
-      onCancel() {
-
-      },
       footer: false,
       componentParams: {
-        name: '测试渲染Component',
+        type: type,
         updateItem: data,
-        dataset: this._dataSet
       }
     });
     subscription.subscribe(result => {
-    })
-  }
-
-  _submitForm() {
-    for (const i in this.normForm.controls) {
-      this.normForm.controls[i].markAsDirty();
-    }
+      if (result === true) { this._refreshData(); }
+    });
 
   }
+
 
   constructor(
     private fb: FormBuilder,
+    private subject: NzModalSubject,
     private normService: NormService,
     private modalService: NzModalService
   ) {
