@@ -10,8 +10,8 @@ const routes :Routes=[
     loadChildren: '../modules/kpi/kpi.module#KpiModule' ,
   },
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: 'kpi', pathMatch: 'full' },
-  { path: '**', redirectTo: 'kpi', pathMatch: 'full' }
+  { path: '**', redirectTo: 'kpi' },
+  { path: '', redirectTo: 'login' , pathMatch: 'full'}
 ]
 
 export const CommonRoutesModule: ModuleWithProviders = RouterModule.forChild(routes);

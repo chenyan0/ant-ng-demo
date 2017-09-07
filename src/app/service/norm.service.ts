@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import {Headers} from '@angular/http';
-
 import { Norm, norms } from "../modules/kpi/pages/myplan/data-model";
 import { HttpClient, HttpParams } from '@angular/common/http';
 @Injectable()
@@ -55,6 +52,12 @@ export class NormService {
    * 更新KPI指标
    * 
    * @param {number} id 
+   * @param {string} name      指标名称
+   * @param {string} standard  评分标准
+   * @param {number} weight    权重
+   * @param {string} goal      年度目标
+   * @param {string} Jan       一月
+   * @param {string} Feb       二月
    * @returns {Observable<any>} 
    * @memberof NormService
    */
