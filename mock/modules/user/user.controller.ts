@@ -25,4 +25,20 @@ export class UserController {
       })
     );
   }
+
+
+    /**
+   * 用户注销 
+   * 用户注销退出系统
+   * @param {any} req 
+   * @param {any} res 
+   * @memberof UserController
+   */
+  @Get('logout')
+  public async logout(req, res) {
+    res.status(HttpStatus.OK).json(
+      MockTool.mock(null)
+    );
+  }
+
 }

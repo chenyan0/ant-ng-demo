@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  token: 'task-dispatch-admin-token',
+  token: 'gxt-assets-token',
   server: 'http://localhost:3032'
 }; 

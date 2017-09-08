@@ -44,8 +44,7 @@ export class NormService {
    * @memberof NormService
    */
     deleteNorm(id: number){
-        // const headers = new HttpHeaders().set("X-CustomHeader", "custom header value");
-        return this.http.delete('http://localhost:3032/kpi/delete')
+        return this.http.post('http://localhost:3032/kpi/delete',{id:id})
        
     }
     /**

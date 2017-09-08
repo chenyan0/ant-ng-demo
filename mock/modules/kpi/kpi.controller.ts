@@ -48,7 +48,7 @@ export class KpiController {
    * @param {any} res 
    * @memberof KpiController
    */
-  @Get('delete')
+  @Post('delete')
   public async delete(req, res) {
     res.status(HttpStatus.OK).json(
       MockTool.mock(null)

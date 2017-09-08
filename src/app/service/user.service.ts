@@ -18,4 +18,16 @@ export class UserService {
   login(form: any): Observable<any> {
     return this.http.post('http://localhost:3032/user/login', form);
   }
-}
+
+  /**
+   * 用户注销
+   * 用户注销系统
+   * @param 
+   * @returns {Observable<any>}
+   * @memberof UserService
+   */
+  logout():Observable<any>{
+    return this.http.get('http://localhost:3032/user/logout');
+  }
+ 
+}           

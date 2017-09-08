@@ -4,5 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  token: 'task-dispatch-admin-token',
+  server: 'http://localhost:3032'
 };

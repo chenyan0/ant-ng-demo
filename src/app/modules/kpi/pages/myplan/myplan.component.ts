@@ -88,7 +88,7 @@ export class MyPlanComponent implements OnInit {
 
 
   }
-  _deleteData(row: Norm) {
+  _deleteData() {
     this._dataSet.forEach(value => {
       if (value.checked) {
         this.normService.deleteNorm(value.id).subscribe(d => {
