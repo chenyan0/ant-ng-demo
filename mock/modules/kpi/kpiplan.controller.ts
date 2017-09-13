@@ -2,8 +2,8 @@ import { Response } from 'express';
 import { Controller, Get, Post, HttpStatus, Req, Res, Param, Body, Put, Delete } from '@nestjs/common';
 import { MockTool } from '../mock.class';;
 
-@Controller('kpi')
-export class KpiController {
+@Controller('kpiPlan')
+export class KpiPlanController {
   normBo = {
     "id|+1": 1,
     'name': '@cword(3,5)',
@@ -13,18 +13,19 @@ export class KpiController {
     'Jan': '@cword(3,15)',
     'Feb': '@cword(3,15)'
   };
+
    /**
    * 指标列表
    * 
    * @param {any} req 
    * @param {any} res 
-   * @memberof KpiController
+   * @memberof KpiPlanController
    */
   @Get('list') 
   public async keys(req, res) {
     res.status(HttpStatus.OK).json(   
       MockTool.page({
-        'data|6': [this.normBo]
+        'data|10': [this.normBo]
       })
     );
   }
@@ -33,7 +34,7 @@ export class KpiController {
    * 
    * @param {any} req 
    * @param {any} res 
-   * @memberof KpiController
+   * @memberof KpiPlanController
    */
  @Post('add')
   public async add(req, res) {
@@ -46,7 +47,7 @@ export class KpiController {
    * 
    * @param {any} req 
    * @param {any} res 
-   * @memberof KpiController
+   * @memberof KpiPlanController
    */
   @Post('delete')
   public async delete(req, res) {
@@ -59,7 +60,7 @@ export class KpiController {
    * 
    * @param {any} req 
    * @param {any} res 
-   * @memberof KpiController
+   * @memberof KpiPlanController
    */
  @Post('update')
   public async update(req, res) {
@@ -67,6 +68,7 @@ export class KpiController {
       MockTool.mock(null)
     );
   }
+    
 
 
 }

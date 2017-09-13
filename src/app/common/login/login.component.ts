@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { FormBuilder,FormGroup,Validators} from '@angular/forms';
-import { UserService } from "../../service/user.service";
+import { UserApi } from "../../service/api/user.api";
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   model: any = { username: '', password: '' };
 
   constructor(
-    private us: UserService,
+    private us: UserApi,
     private fb: FormBuilder,
     private router: Router
   ) {

@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NzModalService, NzModalSubject } from 'ng-zorro-antd';
 import { Norm, norms } from './data-model';
-import { NormService } from "../../../../service/norm.service";
+import { NormApi } from "../../../../service/api/norm.api";
 import { ModalOperateNormComponent } from '../../modals/modal-operate-norm/modal-operate-norm.component';
 @Component({
   selector: 'my-plan',
@@ -15,11 +15,10 @@ export class MyPlanComponent implements OnInit {
   _allChecked = false;
   _indeterminate = false;
   _disabledButton = true;
-  _displayData = [];
   _operating = false;
   _current = 1;
   _pageSize =10;
-  _total = 100;
+  _total = 20;
   _dataSet = [];
   _loading = true;
 
@@ -28,36 +27,28 @@ export class MyPlanComponent implements OnInit {
   _selectData = {};
   normForm: FormGroup;
   updateItem: any;
-  _displayDataChange($event) {
-    this._displayData = $event;
 
-  };
   _refreshData() {
     this._loading = true;
-    this.normService.getNorms(this._current, this._pageSize).subscribe((res: any) => {
+    this.NormApi.getNorms(this._current, this._pageSize).subscribe((res: any) => {
       this._loading = false;
-
       this._dataSet = res.data.data;
+      this._refreshStatus();
     })
-
-    this._refreshStatus();
   }
   _refreshStatus() {
-    const allChecked = this._displayData.every(value => value.checked === true);
-    const allUnChecked = this._displayData.every(value => !value.checked);
+    const allChecked = this._dataSet.every(value => value.checked === true);
+    const allUnChecked = this._dataSet.every(value => !value.checked);
     this._allChecked = allChecked;
     this._indeterminate = (!allChecked) && (!allUnChecked);
     this._disabledButton = !this._dataSet.some(value => value.checked);
-
-
-
   };
 
   _checkAll(value) {
     if (value) {
-      this._displayData.forEach(data => data.checked = true);
+      this._dataSet.forEach(data => data.checked = true);
     } else {
-      this._displayData.forEach(data => data.checked = false);
+      this._dataSet.forEach(data => data.checked = false);
     }
     this._refreshStatus();
   };
@@ -75,6 +66,9 @@ export class MyPlanComponent implements OnInit {
     this.showOperateModal('');
   }
 
+  /**
+   * 修改指标
+   */
   _modifyData() {
     this.operateName = 'md';
     let arr = this._dataSet;
@@ -85,25 +79,35 @@ export class MyPlanComponent implements OnInit {
     })
     this._selectData = this.updateItem;
     this.showOperateModal(this._selectData);
-
-
   }
+
+  /**
+   * 删除指标
+   */
   _deleteData() {
     this._dataSet.forEach(value => {
       if (value.checked) {
-        this.normService.deleteNorm(value.id).subscribe(d => {
+        this.NormApi.deleteNorm(value.id).subscribe(d => {
           if (d) {
             this._refreshData();
           }
         });
       }
     })
-
   }
 
+  /**
+   * 获取表单值
+   * @param name 
+   */
   getFormControl(name) {
     return this.normForm.controls[name];
   }
+
+  /**
+   * 显示模态窗
+   * @param data 
+   */
   showOperateModal(data) {
     const tit = (data == '') ? '新增指标' : '修改指标';
     const type = (data == '') ? 'add' : 'modify';
@@ -126,7 +130,7 @@ export class MyPlanComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private subject: NzModalSubject,
-    private normService: NormService,
+    private NormApi: NormApi,
     private modalService: NzModalService
   ) {
   }

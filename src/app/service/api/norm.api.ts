@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Norm, norms } from "../modules/kpi/pages/myplan/data-model";
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { environment } from "environments/environment";
 @Injectable()
-export class NormService {
-
-    constructor(private http: HttpClient) { }
+export class NormApi {
+  BaseUrl: string = '';
+    constructor(private http: HttpClient) { 
+        this.BaseUrl=environment.server;
+     }
 
 
    /**
@@ -13,11 +15,11 @@ export class NormService {
    * 
    * @param {number} id 
    * @returns {Observable<any>} 
-   * @memberof NormService
+   * @memberof NormApi
    */
     getNorms(current,pageSize) {
         const params = new HttpParams().set('curPage', current).set('pageSize', pageSize);
-        return this.http.get('http://localhost:3032/kpi/list',{params});
+        return this.http.get(this.BaseUrl+'/kpiPlan/list',{params});
     }
 
    /**
@@ -30,10 +32,10 @@ export class NormService {
    * @param {string} Jan       一月
    * @param {string} Feb       二月
    * @returns {Observable<any>} 
-   * @memberof NormService
+   * @memberof NormApi
    */
     addNorm( name:string,standard:string,weight:number,goal:string,Jan:string,Feb:string): Observable<any> {
-        return this.http.post('http://localhost:3032/kpi/add', { name: name, standard: standard, weight: weight,goal: goal,Jan: Jan ,Feb: Feb});
+        return this.http.post(this.BaseUrl+'/kpiPlan/add', { name: name, standard: standard, weight: weight,goal: goal,Jan: Jan ,Feb: Feb});
     }
 
    /**
@@ -41,10 +43,10 @@ export class NormService {
    * 
    * @param {number} id 
    * @returns {Observable<any>} 
-   * @memberof NormService
+   * @memberof NormApi
    */
     deleteNorm(id: number){
-        return this.http.post('http://localhost:3032/kpi/delete',{id:id})
+        return this.http.post(this.BaseUrl+'/kpiPlan/delete',{id:id})
        
     }
     /**
@@ -58,11 +60,11 @@ export class NormService {
    * @param {string} Jan       一月
    * @param {string} Feb       二月
    * @returns {Observable<any>} 
-   * @memberof NormService
+   * @memberof NormApi
    */
      updateNorm( name:string,standard:string,weight:number,goal:string,Jan:string,Feb:string): Observable<any> {
-        return this.http.post('http://localhost:3032/kpi/update', { name: name, standard: standard, weight: weight,goal: goal,Jan: Jan ,Feb: Feb});
+        return this.http.post(this.BaseUrl+'/kpiPlan/update', { name: name, standard: standard, weight: weight,goal: goal,Jan: Jan ,Feb: Feb});
     }
 
 
-}    
+}       

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NzModalSubject,NzMessageService } from 'ng-zorro-antd';
-import { NormService } from "../../../../service/norm.service";
+import { NormApi } from "../../../../service/api/norm.api";
 
 @Component({
     selector: 'modal-op-norm',
@@ -39,7 +39,7 @@ export class ModalOperateNormComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private normService: NormService,
+        private NormApi: NormApi,
         private subject: NzModalSubject,
         private nms:NzMessageService
     ) { }
@@ -50,7 +50,7 @@ export class ModalOperateNormComponent implements OnInit {
         }
         this.submitted = true;
         if (this._type == 'add') {
-            this.normService.addNorm(this.getFormControl('name').value, this.getFormControl('weight').value, this.getFormControl('standard').value, this.getFormControl('goal').value, this.getFormControl('Jan').value, this.getFormControl('Feb').value, ).subscribe(d => {
+            this.NormApi.addNorm(this.getFormControl('name').value, this.getFormControl('weight').value, this.getFormControl('standard').value, this.getFormControl('goal').value, this.getFormControl('Jan').value, this.getFormControl('Feb').value, ).subscribe(d => {
                 if (d) {
                       this.nms.success('新增指标成功！');
                     this.subject.next(true);
@@ -59,7 +59,7 @@ export class ModalOperateNormComponent implements OnInit {
                 this.submitted = false;
             }, () => { this.submitted = false; });   
         } else if (this._type == 'modify') {
-            this.normService.updateNorm(this.getFormControl('name').value, this.getFormControl('weight').value, this.getFormControl('standard').value, this.getFormControl('goal').value, this.getFormControl('Jan').value, this.getFormControl('Feb').value, ).subscribe(d => {
+            this.NormApi.updateNorm(this.getFormControl('name').value, this.getFormControl('weight').value, this.getFormControl('standard').value, this.getFormControl('goal').value, this.getFormControl('Jan').value, this.getFormControl('Feb').value, ).subscribe(d => {
                 if (d) {
                       this.nms.success('修改指标成功！');
                     this.subject.next(true);

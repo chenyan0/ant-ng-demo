@@ -1,0 +1,19 @@
+@base: #f938ab;
+.demo-chart(@width: 300px) {
+    display: inline-block;
+    height: 300px;
+    width: @width;
+    margin-top: 20px;
+}
+
+.demo-chart-1 {
+    .demo-chart(@width: 700px);
+}
+
+.demo-chart-2 {
+    .demo-chart;
+}
+
+.demo-chart-3 {
+    .demo-chart(@width: 600px);
+}

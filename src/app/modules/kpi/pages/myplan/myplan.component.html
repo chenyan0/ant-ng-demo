@@ -12,9 +12,7 @@
     <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()">下载导入模板</button>
     <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()">导入年度计划</button>
   </div>
-  <nz-table #nzTable  [nzAjaxData]="_dataSet" (nzDataChange)="_displayDataChange($event)" 
-  (nzPageIndexChange)="_refreshData()"
-    (nzPageSizeChange)="_refreshData()"
+  <nz-table #nzTable  [nzAjaxData]="_dataSet" (nzPageIndexChange)="_refreshData()" (nzPageSizeChange)="_refreshData()"
       [nzShowSizeChanger]="true"
       [nzLoading]="_loading"
       [nzTotal]="_total"
