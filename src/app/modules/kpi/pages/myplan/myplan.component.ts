@@ -18,11 +18,10 @@ export class MyPlanComponent implements OnInit {
   _operating = false;
   _current = 1;
   _pageSize =10;
-  _total = 20;
+  _total = 1;
   _dataSet = [];
+  _displayData=[];
   _loading = true;
-
-  isConfirmLoading = false;
   operateName: string;
   _selectData = {};
   normForm: FormGroup;
@@ -30,25 +29,27 @@ export class MyPlanComponent implements OnInit {
 
   _refreshData() {
     this._loading = true;
+    console.log(this._current);
     this.NormApi.getNorms(this._current, this._pageSize).subscribe((res: any) => {
       this._loading = false;
+      this._total=200;
       this._dataSet = res.data.data;
-      this._refreshStatus();
+      this._displayData = this._dataSet;
     })
   }
   _refreshStatus() {
-    const allChecked = this._dataSet.every(value => value.checked === true);
-    const allUnChecked = this._dataSet.every(value => !value.checked);
+    const allChecked = this._displayData.every(value => value.checked === true);
+    const allUnChecked = this._displayData.every(value => !value.checked);
     this._allChecked = allChecked;
     this._indeterminate = (!allChecked) && (!allUnChecked);
-    this._disabledButton = !this._dataSet.some(value => value.checked);
+    this._disabledButton = !this._displayData.some(value => value.checked);
   };
 
   _checkAll(value) {
     if (value) {
-      this._dataSet.forEach(data => data.checked = true);
+      this._displayData.forEach(data => data.checked = true);
     } else {
-      this._dataSet.forEach(data => data.checked = false);
+      this._displayData.forEach(data => data.checked = false);
     }
     this._refreshStatus();
   };
@@ -56,7 +57,7 @@ export class MyPlanComponent implements OnInit {
   _operateData() {
     this._operating = true;
     setTimeout(_ => {
-      this._dataSet.forEach(value => value.checked = false);
+      this._displayData.forEach(value => value.checked = false);
       this._refreshStatus();
       this._operating = false;
     }, 1000);

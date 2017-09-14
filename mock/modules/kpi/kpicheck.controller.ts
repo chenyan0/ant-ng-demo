@@ -12,7 +12,7 @@ export class KpiCheckController {
     'name': '@cname()',
     'Job': '@cword(3,8)',
     'year': '@date()',
-    'status':'@boolean()'
+    'status|0-3':3
 
   }
   /**

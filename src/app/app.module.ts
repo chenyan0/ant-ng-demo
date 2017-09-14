@@ -11,7 +11,7 @@ import { CommonModule } from './common/common.module';
 import { ServiceModule } from "./service";
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     CommonModule,
