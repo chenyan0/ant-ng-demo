@@ -9,8 +9,13 @@ const routes :Routes=[
     component: MainComponent, 
     loadChildren: '../modules/kpi/kpi.module#KpiModule' ,
   },
+  {
+    path: 'dashboard', 
+    component: MainComponent, 
+    loadChildren: '../modules/dashboard/dashboard.module#DashboardModule' ,
+  },
   { path: 'login', component: LoginComponent },
-  { path: '',  component: MainComponent, loadChildren: '../modules/dashboard/dashboard.module#DashboardModule' , },
+  { path: '',  redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'kpi' }
 ]
 

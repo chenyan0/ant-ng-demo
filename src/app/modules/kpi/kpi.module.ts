@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo:'myplan' },  
   { path: 'myplan', component: MyPlanComponent },  
   { path: 'plancheck',component: PlanCheckComponent },  
-  { path: 'plancheck/detail/:id',component: CheckDeatilComponent },  
+  { path: 'check-detail/:id',component: CheckDeatilComponent },  
 ];
 const MODALS = [ModalOperateNormComponent];
 const COMPONENTS=[MyPlanComponent,PlanCheckComponent,ModalOperateNormComponent,CheckDeatilComponent,StatusPipe];

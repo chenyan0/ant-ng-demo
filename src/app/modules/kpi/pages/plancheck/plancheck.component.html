@@ -19,8 +19,8 @@
         </div>
       </div>
     </form>
-    <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()">审核通过</button>
-    <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()">退回充填</button>
+    <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="onPass()">审核通过</button>
+    <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="onReturn()">退回重填</button>
   </div>
   <nz-table #nzTable [nzAjaxData]="_dataSet" [nzPageSize]="10" [nzTotal]="_total" (nzPageIndexChange)="_refreshStatus()" (nzPageSizeChange)="_refreshStatus()"
     [nzLoading]="_loading">
@@ -60,11 +60,11 @@
         <td nz-td>{{data.status}}{{ data.status | status:'plan_status'}}</td>
         <td nz-td>
           <span>
-            <nz-popconfirm [nzTitle]="'确定要退回此计划吗？'" (nzOnConfirm)="confirm()" >
-              <a href="#"  *ngIf="data.status!==3" nz-popconfirm>退回</a>
+            <nz-popconfirm [nzTitle]="'确定要退回此计划吗？'" (nzOnConfirm)="confirm()"  *ngIf="data.status!==1">
+              <a href="#"   nz-popconfirm>退回</a>
             </nz-popconfirm>
-              <span nz-table-divider *ngIf="data.status!==3"></span>
-          <a [routerLink]="['/kpi/plancheck/detail', data.id]">查看</a>
+              <span nz-table-divider *ngIf="data.status!==1"></span>
+          <a [routerLink]="['/kpi/check-detail', data.id]">查看</a>
           </span>
         </td>
 

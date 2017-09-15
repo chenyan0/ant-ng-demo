@@ -3,8 +3,7 @@ import { Routes,RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { AngularEchartsModule } from 'ngx-echarts';
 const routes: Routes = [
-  { path: '', redirectTo:'dashboard' }, 
-    { path: 'dashboard', component: DashboardComponent },  
+    { path: '', component: DashboardComponent },  
 ]
 
 @NgModule({

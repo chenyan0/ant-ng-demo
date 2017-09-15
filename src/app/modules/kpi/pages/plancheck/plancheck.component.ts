@@ -20,6 +20,8 @@ export class PlanCheckComponent implements OnInit {
   _indeterminate = false;
   _displayData = [];
   _dataSet = [];
+  PASS = 1;
+  FAIL = 0;
   filterAddressArray = [
     { name: '已审核', value: false },
     { name: '未审核', value: false }
@@ -34,6 +36,9 @@ export class PlanCheckComponent implements OnInit {
       selectYear: '2017',
     })
     this.getList();
+  }
+  ngOnChanges(){
+    
   }
   getList() {
     this._loading = true;
@@ -66,7 +71,6 @@ export class PlanCheckComponent implements OnInit {
   };
   dataChange(eve) {
     if (!eve) {
-      console.log(this.getFormControl('selectYear'));
       this.getList();
     }
   }
@@ -79,19 +83,33 @@ export class PlanCheckComponent implements OnInit {
     return this.yearForm.controls[name];
   }
 
-/**
- * 退回confirm 确定回调
- */
-  confirm = () => {
+  /**
+   * 退回confirm 确定回调
+   */
+  confirm() {
     this.nms.info('退回成功');
   }
-/**
- * 退回confirm 取消回调
- */
-  cancel = function () {
-    this.nms.info('click cancel');
+
+  onPass() {
+    this._dataSet.map((item) => {
+      item.status = this.PASS;
+
+    });
+    this._displayData.forEach(data => {
+      data.checked = false;
+    });
+    this._refreshStatus();
+
   }
+  onReturn() {
+    this._dataSet.map((item) => {
 
+      item.status = this.FAIL
+    });
+    this._displayData.forEach(data => {
+      data.checked = false;
+    });
+    this._refreshStatus();
 
-
+  }
 }
