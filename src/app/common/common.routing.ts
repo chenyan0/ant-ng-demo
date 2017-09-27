@@ -9,6 +9,16 @@ const routes :Routes=[
     component: MainComponent, 
     loadChildren: '../modules/kpi/kpi.module#KpiModule' ,
   },
+   {
+    path: 'tour', 
+    component: MainComponent, 
+    loadChildren: '../modules/tour/tour.module#TourModule' ,
+  },
+   {
+    path: 'report', 
+    component: MainComponent, 
+    loadChildren: '../modules/report/report.module#ReportModule' ,
+  },
   {
     path: 'dashboard', 
     component: MainComponent, 

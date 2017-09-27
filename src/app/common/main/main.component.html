@@ -12,10 +12,19 @@
         </ul>
       </li>
       <li nz-submenu>
-        <span title><i class="anticon anticon-team"></i><span class="nav-text">360度考核</span></span>
+        <span title><i class="anticon anticon-pie-chart"></i><span class="nav-text">360度考核</span></span>
         <ul>
-          <li nz-menu-item>360度考核结果</li>
-          <li nz-menu-item>360度考核打分</li>
+          <li nz-menu-item routerLink="/tour/mark" routerLinkActive="active-link">360度考核打分</li>
+          <li nz-menu-item routerLink="/tour/result" routerLinkActive="active-link">360度考核结果</li>
+        </ul>
+      </li>
+      <li nz-submenu>
+        <span title><i class="anticon anticon-credit-card"></i><span class="nav-text">述职考核</span></span>
+        <ul>
+          <li nz-menu-item routerLink="/report/fill" routerLinkActive="active-link">填报述职报告</li>
+          <li nz-menu-item routerLink="/report/inquire" routerLinkActive="active-link">查询述职报告</li>
+          <li nz-menu-item routerLink="/report/mark" routerLinkActive="active-link">述职报告评分</li>
+          <li nz-menu-item routerLink="/report/myresult" routerLinkActive="active-link">我的述职结果</li>
         </ul>
       </li>
     </ul>

@@ -1,0 +1,60 @@
+<nz-breadcrumb style="margin:12px 0;">
+  <nz-breadcrumb-item>360度考核</nz-breadcrumb-item>
+  <nz-breadcrumb-item>360度考核打分</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div style="padding:24px; background: #fff; min-height: 360px;">
+  <div nz-row>
+    <div nz-col [nzSpan]="6">
+      当前考核周期：2017年半年360度考核
+    </div>
+    <div nz-col [nzSpan]="6">
+      截止日期：2017-06-20
+    </div>
+  </div>
+  <div nz-row  class="mg-t">
+    <div nz-col [nzSpan]="14">
+      您现在正在为他人进行考核评分，请认真阅读考核标准，并作出客观的评分判断，并给出客观的评价意见，确认无误后提交，谢谢！
+    </div>
+    <div nz-col [nzSpan]="10" >
+      <button nz-button [nzType]="'primary'" >
+      <span>保存</span>
+    </button>
+      <button nz-button [nzType]="'primary'">
+      <span>提交</span>
+    </button>
+    </div>
+
+  </div>
+
+  <nz-table #nzTable [nzDataSource]="data" [nzPageSize]="10" [nzBordered]="true" class="mg-t">
+    <thead nz-thead>
+      <tr>
+        <th nz-th><span>评分对象</span></th>
+        <th nz-th><span>分数</span></th>
+        <th nz-th><span>综合评价</span></th>
+
+      </tr>
+    </thead>
+    <tbody nz-tbody>
+      <tr nz-tbody-tr *ngFor="let data of nzTable.data; index as i;">
+        <td nz-td>
+          <a>{{data.name}}</a>
+        </td>
+        <td>
+          <nz-row>
+            <nz-col nzSpan="12">
+              <nz-slider [nzMin]="1" [nzMax]="10" [(ngModel)]="data.value"></nz-slider>
+            </nz-col>
+            <div nz-col nzSpan="4">
+              <nz-input-number [nzMin]="1" [nzMax]="10" [ngStyle]="{ 'marginLeft': '16px' }" [(ngModel)]="data.value"></nz-input-number>
+            </div>
+          </nz-row>
+        </td>
+        <td>
+          <nz-input [nzRows]="3" [nzType]="'textarea'" [nzPlaceHolder]="'write any thing'" [nzSize]="'large'">
+          </nz-input>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

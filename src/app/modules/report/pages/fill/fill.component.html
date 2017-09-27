@@ -1,0 +1,79 @@
+<nz-breadcrumb style="margin:12px 0;">
+  <nz-breadcrumb-item>述职考核</nz-breadcrumb-item>
+  <nz-breadcrumb-item>填报述职报告</nz-breadcrumb-item>
+</nz-breadcrumb>
+<div style="padding:24px; background: #fff; min-height: 360px;">
+  <div nz-row>
+    <div nz-col [nzSpan]="24">
+      <button nz-button [nzType]="'primary'">
+        <span>保存报告</span>
+        </button>
+      <button nz-button [nzType]="'primary'">
+        <span>提交报告</span>
+        </button>
+      <button nz-button [nzType]="'primary'" class="btnUpload">
+         <i class="anticon anticon-upload"></i>
+        <span>span上传述职报告（PPT）</span>
+        <input type="file">
+      </button>
+    </div>
+    <h2 nz-col [nzSpan]="24">2017年半年述职报告</h2>
+    <div nz-col [nzSpan]="24"></div>
+  </div>
+  <form nz-form [formGroup]="fillReportForm" (ngSubmit)="submitForm()">
+    <div nz-form-item nz-row>
+      <div nz-form-label nz-col [nzSpan]="2">
+        <label>述职人</label>
+      </div>
+      <div nz-form-control nz-col [nzSpan]="4" [nzValidateStatus]="fillReportForm.controls.userName">
+        <nz-input formControlName="userName" [nzPlaceHolder]="'Username'" [nzSize]="'large'">
+        </nz-input>
+        <div nz-form-explain *ngIf="fillReportForm.controls.userName.dirty&&fillReportForm.controls.userName.hasError('required')">Please input your username!</div>
+      </div>
+      <div nz-form-label nz-col [nzSpan]="2">
+        <label>单位/部门</label>
+      </div>
+      <div nz-form-control nz-col [nzSpan]="4" [nzValidateStatus]="fillReportForm.controls.department">
+        <nz-select    nzAllowClear  [nzPlaceHolder]="'请选择'" [nzSize]="'large'" [(ngModel)]="selectedOption"  [nzShowSearch]="true" formControlName="department">
+            <nz-option  *ngFor="let option of searchOptions" [nzLabel]="option.label" [nzValue]="option.value" [nzDisabled]="option.disabled">
+            </nz-option>
+        </nz-select>
+        <!--<nz-input formControlName="department" [nzPlaceHolder]="'Username'" [nzSize]="'large'">
+        </nz-input>
+        <div nz-form-explain *ngIf="fillReportForm.controls.department.dirty&&fillReportForm.controls.department.hasError('required')">Please input your username!</div>-->
+      </div>
+      <div nz-form-label nz-col [nzSpan]="2">
+        <label>职务</label>
+      </div>
+      <div nz-form-control nz-col [nzSpan]="4" [nzValidateStatus]="fillReportForm.controls.post">
+        <nz-input formControlName="post" [nzPlaceHolder]="'Username'" [nzSize]="'large'">
+        </nz-input>
+        <div nz-form-explain *ngIf="fillReportForm.controls.post.dirty&&fillReportForm.controls.post.hasError('required')">Please input your username!</div>
+      </div>
+      <div nz-form-label nz-col [nzSpan]="2">
+        <label>填写时间</label>
+      </div>
+      <div nz-form-control nz-col [nzSpan]="4" [nzValidateStatus]="fillReportForm.controls.filltime">
+        <!--<nz-input formControlName="userName" [nzPlaceHolder]="'Username'" [nzSize]="'large'" >
+        </nz-input>-->
+        <nz-datepicker [(ngModel)]="_date" [nzPlaceHolder]="'选择填报时间'" formControlName="filltime" [nzSize]="'large'"></nz-datepicker>
+      </div>
+    </div>
+    <div nz-row>
+      <h3>一、岗位认知</h3>
+      <nz-input [nzRows]="4" [nzType]="'textarea'" [nzPlaceHolder]="'请填写...'" [nzSize]="'large'">
+      </nz-input>
+    </div>
+    <div nz-row>
+      <h3>二、工作业绩</h3>
+      <nz-input [nzRows]="4" [nzType]="'textarea'" [nzPlaceHolder]="'请填写...'" [nzSize]="'large'">
+      </nz-input>
+    </div>
+    <div nz-row>
+      <h3>三、存在的问题及下一步工作计划</h3>
+      <nz-input [nzRows]="4" [nzType]="'textarea'" [nzPlaceHolder]="'请填写...'" [nzSize]="'large'">
+      </nz-input>
+    </div>
+
+  </form>
+</div>
