@@ -5,12 +5,14 @@ import { DelayMiddleware } from './delay.middlewares';
 import { KpiCheckController } from './kpi/kpicheck.controller'
 import { KpiPlanController } from './kpi/kpiplan.controller'
 import { UserController } from './user/user.controller'
+import { FillReportController } from './report/report-fill.controller'
 
 @Module({
     controllers: [
         UserController,
         KpiCheckController,
-        KpiPlanController
+        KpiPlanController,
+        FillReportController
     ],
 })
 export class ApplicationModule {
