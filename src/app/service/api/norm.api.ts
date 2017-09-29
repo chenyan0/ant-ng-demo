@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { LHttp, BaseService } from 'app/base';
+import { NzNotificationService } from 'ng-zorro-antd';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from "environments/environment";
 @Injectable()
-export class NormApi {
-  BaseUrl: string = '';
-    constructor(private http: HttpClient) { 
-        this.BaseUrl=environment.server;
-     }
-
+export class NormApi extends BaseService {
+//   BaseUrl: string = '';
+//     constructor(private http: HttpClient) { 
+//         this.BaseUrl=environment.server;
+//      }
+  constructor(http: LHttp, nns: NzNotificationService) {
+    super(http, nns);
+  }
 
    /**
    * KPI指标列表
@@ -18,8 +21,8 @@ export class NormApi {
    * @memberof NormApi
    */
     getNorms(current,pageSize) {
-        const params = new HttpParams().set('curPage', current).set('pageSize', pageSize);
-        return this.http.get(this.BaseUrl+'/kpiPlan/list',{params});
+        // const params = new HttpParams().set('curPage', current).set('pageSize', pageSize);
+        return this.get('/kpiPlan/list',{curPage:current,pageSize:pageSize});
     }
 
    /**
@@ -35,7 +38,7 @@ export class NormApi {
    * @memberof NormApi
    */
     addNorm( name:string,standard:string,weight:number,goal:string,Jan:string,Feb:string): Observable<any> {
-        return this.http.post(this.BaseUrl+'/kpiPlan/add', { name: name, standard: standard, weight: weight,goal: goal,Jan: Jan ,Feb: Feb});
+        return this.post('/kpiPlan/add', { name: name, standard: standard, weight: weight,goal: goal,Jan: Jan ,Feb: Feb});
     }
 
    /**
@@ -46,7 +49,7 @@ export class NormApi {
    * @memberof NormApi
    */
     deleteNorm(id: number){
-        return this.http.post(this.BaseUrl+'/kpiPlan/delete',{id:id})
+        return this.post('/kpiPlan/delete',{id:id})
        
     }
     /**
@@ -63,7 +66,7 @@ export class NormApi {
    * @memberof NormApi
    */
      updateNorm( name:string,standard:string,weight:number,goal:string,Jan:string,Feb:string): Observable<any> {
-        return this.http.post(this.BaseUrl+'/kpiPlan/update', { name: name, standard: standard, weight: weight,goal: goal,Jan: Jan ,Feb: Feb});
+        return this.post('/kpiPlan/update', { name: name, standard: standard, weight: weight,goal: goal,Jan: Jan ,Feb: Feb});
     }
 
 

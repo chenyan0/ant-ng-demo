@@ -7,7 +7,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from "@angular/common/http";
 import { CommonModule } from './common/common.module';
-import { ServiceModule } from "./service";
+import { ServiceModule } from "app/service";
 @NgModule({
   declarations: [
     AppComponent,

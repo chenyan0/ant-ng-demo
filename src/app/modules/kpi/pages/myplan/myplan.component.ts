@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NzModalService, NzModalSubject } from 'ng-zorro-antd';
 import { Norm, norms } from './data-model';
-import { NormApi } from "../../../../service/api/norm.api";
+import { NormApi } from "app/service/api";
 import { ModalOperateNormComponent } from '../../modals/modal-operate-norm/modal-operate-norm.component';
 @Component({
   selector: 'my-plan',

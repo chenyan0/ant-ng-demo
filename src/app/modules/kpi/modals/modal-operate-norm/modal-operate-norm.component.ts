@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { NzModalSubject,NzMessageService } from 'ng-zorro-antd';
-import { NormApi } from "../../../../service/api/norm.api";
+import { NormApi } from "app/service/api";
 
 @Component({
     selector: 'modal-op-norm',

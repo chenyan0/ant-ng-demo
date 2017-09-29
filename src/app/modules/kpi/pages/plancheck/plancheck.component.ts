@@ -5,7 +5,7 @@ import {
 } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd';
 
-import { PlanCheckApi } from "../../../../service/api/plancheck.api";
+import { PlanCheckApi } from "app/service/api";
 @Component({
   selector: 'plan-check',
   templateUrl: 'plancheck.component.html',

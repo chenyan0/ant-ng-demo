@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import { Router } from '@angular/router'
 import { FormBuilder,FormGroup,Validators} from '@angular/forms';
-import { UserApi } from "../../service/api/user.api";
+import { UserApi } from "app/service/api";
 @Component({
   selector: 'app-login',
   templateUrl: 'login.component.html',
@@ -9,7 +9,7 @@ import { UserApi } from "../../service/api/user.api";
 })
 
 export class LoginComponent implements OnInit {
-  config = { "ballSize": 1, "speed": 1.1, "phaseRefX": 0.12, "phaseRefY": 0.12, "radiusX": 5, "radiusY": 17, "densityX": 4, "densityY": 4, "backgroundFrom": "#3d34a5", "backgroundTo": "#221547", "degree": 62, "ballColor": "#9085d6" }
+  config = {"ballSize":2.2,"speed":-0.9,"phaseRefX":-0.14,"phaseRefY":-0.363,"radiusX":82,"radiusY":0,"densityX":4.5,"densityY":2.5,"backgroundFrom":"#3d34a5","backgroundTo":"#221547","degree":62,"ballColor":"#9791bc"}
   submitted: boolean = false;
   loginForm: FormGroup;
   model: any = { username: '', password: '' };

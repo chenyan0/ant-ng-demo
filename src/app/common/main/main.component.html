@@ -32,9 +32,13 @@
   <nz-layout>
     <nz-header style="background: #fff; padding:0;">
       <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
+      <div class="head-r">
+
+      <span>欢迎回来 <b>123123!</b></span>
       <nz-tooltip nzTitle="登出" nzPlacement="left" (click)="onLogout()">
-        <i nz-tooltip class="anticon trigger anticon-logout" style="float: right;"></i>
+        <i nz-tooltip class="anticon trigger anticon-logout"></i>
       </nz-tooltip>
+      </div>
     </nz-header>
     <nz-content style="margin:0 16px;">
       <router-outlet></router-outlet>

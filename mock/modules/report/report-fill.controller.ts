@@ -22,7 +22,7 @@ export class FillReportController {
    * @memberof FillReportController
    */
   @Get('depts') 
-  public async get(req, res) {
+  public async depts(req, res) {
     res.status(HttpStatus.OK).json(   
       MockTool.page({
         'data|10':[this.dept_BO]
@@ -37,11 +37,24 @@ export class FillReportController {
    * @memberof FillReportController
    */
   @Get('posts') 
-  public async keys(req, res) {
+  public async posts(req, res) {
     res.status(HttpStatus.OK).json(   
       MockTool.page({
         'data|10':[this.post_BO]
       })
+    );
+  }
+   /**
+   * 保存报告、提交报告
+   * 
+   * @param {any} req 
+   * @param {any} res 
+   * @memberof KpiPlanController
+   */
+ @Post('save')
+  public async save(req, res) {
+    res.status(HttpStatus.OK).json(
+      MockTool.mock(null)
     );
   }
 
