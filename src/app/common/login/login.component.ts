@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   model: any = { username: '', password: '' };
 
   constructor(
-    private us: UserApi,
+    private api: UserApi,
     private fb: FormBuilder,
     private router: Router
   ) {
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     }
     if (this.loginForm.valid) {
       this.submitted = true;
-      this.us.login(this.loginForm.value).subscribe(d => {
+      this.api.login(this.loginForm.value).subscribe(d => {
         if (d) {
           let error;
           // 显示错误信息

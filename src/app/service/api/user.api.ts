@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { environment } from "environments/environment";
-
+import { LHttp, BaseService } from 'app/base';
+import { NzNotificationService } from 'ng-zorro-antd';
 @Injectable()
-export class UserApi {
-    BaseUrl: string = '';
-    constructor(private http: HttpClient) { 
-        this.BaseUrl=environment.server;
-     }
+export class UserApi extends BaseService {
+    constructor(http: LHttp, nns: NzNotificationService){
+      super(http, nns);
+    }
 
    /**
    * 用户登录
@@ -18,7 +17,7 @@ export class UserApi {
    * @memberof UserApi
    */
   login(form: any): Observable<any> {
-    return this.http.post(this.BaseUrl+'/user/login', form);
+    return this.post('/user/login', form);
   }
 
   /**
@@ -29,7 +28,7 @@ export class UserApi {
    * @memberof UserApi
    */
   logout():Observable<any>{
-    return this.http.get(this.BaseUrl+'/user/logout');
+    return this.get('/user/logout');
   }
  
 }           

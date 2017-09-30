@@ -19,7 +19,7 @@ import { ServiceModule } from "app/service";
     ServiceModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([]),  
+    RouterModule.forRoot([]), 
 NgZorroAntdModule.forRoot()
   ],
   bootstrap: [AppComponent]

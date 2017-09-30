@@ -12,10 +12,10 @@
     </div>
   </div>
   <div nz-row  class="mg-t">
-    <div nz-col [nzSpan]="14">
+    <div nz-col [nzSpan]="20">
       您现在正在为他人进行考核评分，请认真阅读考核标准，并作出客观的评分判断，并给出客观的评价意见，确认无误后提交，谢谢！
     </div>
-    <div nz-col [nzSpan]="10" >
+    <div nz-col [nzSpan]="4" >
       <button nz-button [nzType]="'primary'" >
       <span>保存</span>
     </button>
@@ -26,7 +26,7 @@
 
   </div>
 
-  <nz-table #nzTable [nzDataSource]="data" [nzPageSize]="10" [nzBordered]="true" class="mg-t">
+  <nz-table #nzTable [nzAjaxData]="data" [nzPageSize]="10" [nzTotal]="20" [nzLoading]="_loading" [nzBordered]="true" class="mg-t">
     <thead nz-thead>
       <tr>
         <th nz-th><span>评分对象</span></th>

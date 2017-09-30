@@ -1,29 +1,26 @@
 import { Component, OnInit } from '@angular/core';
+import { TourMarkApi } from "app/service/api";
 
 @Component({
-    selector: 'tourMark',
-    templateUrl: 'mark.component.html',
-    styleUrls: ['mark.component.less'],     
+  selector: 'tourMark',
+  templateUrl: 'mark.component.html',
+  styleUrls: ['mark.component.less'],
 })
-  
-export class MarkComponent implements OnInit {
-    data = [ {
-    name   : 'John Brown',
-    value:'1'
-  }, {
-    name   : 'Jim Green',
-     value:'1'
-  }, {
-    name   : 'Joe Black',
-     value:'1'
-  }, {
-    name   : 'Jim Red',
-     value:'1'
-  }, {
-    name   : 'Jake White',
-     value:'1'
-  } ];
-    constructor() { }
 
-    ngOnInit() { }
+export class MarkComponent implements OnInit {
+  data = [];
+  _loading: boolean;
+  constructor(private api: TourMarkApi) { }
+  _refreshData() {
+    this._loading = true;
+    this.api.getMarkLists().subscribe((res) => {
+      if (res) {
+        this._loading = false;
+        this.data = res.data;
+      }
+    })
+  }
+  ngOnInit() {
+    this._refreshData();
+  }
 }

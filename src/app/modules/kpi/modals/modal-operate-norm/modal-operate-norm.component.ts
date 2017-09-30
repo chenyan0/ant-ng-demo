@@ -39,7 +39,7 @@ export class ModalOperateNormComponent implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private NormApi: NormApi,
+        private api: NormApi,
         private subject: NzModalSubject,
         private nms:NzMessageService
     ) { }
@@ -50,7 +50,7 @@ export class ModalOperateNormComponent implements OnInit {
         }
         this.submitted = true;
         if (this._type == 'add') {
-            this.NormApi.addNorm(this.getFormControl('name').value, this.getFormControl('weight').value, this.getFormControl('standard').value, this.getFormControl('goal').value, this.getFormControl('Jan').value, this.getFormControl('Feb').value, ).subscribe(d => {
+            this.api.addNorm(this.normForm.value).subscribe(d => {
                 if (d) {
                       this.nms.success('新增指标成功！');
                     this.subject.next(true);
@@ -59,7 +59,7 @@ export class ModalOperateNormComponent implements OnInit {
                 this.submitted = false;
             }, () => { this.submitted = false; });   
         } else if (this._type == 'modify') {
-            this.NormApi.updateNorm(this.getFormControl('name').value, this.getFormControl('weight').value, this.getFormControl('standard').value, this.getFormControl('goal').value, this.getFormControl('Jan').value, this.getFormControl('Feb').value, ).subscribe(d => {
+            this.api.updateNorm(this.normForm.value).subscribe(d => {
                 if (d) {
                       this.nms.success('修改指标成功！');
                     this.subject.next(true);

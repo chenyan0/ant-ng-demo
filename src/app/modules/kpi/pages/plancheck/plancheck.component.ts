@@ -45,7 +45,7 @@ export class PlanCheckComponent implements OnInit {
     this.api.getlist(this.getFormControl('selectYear').value).subscribe((d: any) => {
       if (d) {
         this._loading = false;
-        this._dataSet = d.data.data;
+        this._dataSet = d.data;
         this._displayData = this._dataSet;
       }
     });

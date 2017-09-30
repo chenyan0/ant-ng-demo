@@ -3,20 +3,19 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { LHttp, BaseService } from 'app/base';
 import { NzNotificationService } from 'ng-zorro-antd';
-
 @Injectable()
-export class PlanCheckApi extends BaseService {
- constructor(http: LHttp, nns: NzNotificationService) {
+export class TourMarkApi extends BaseService{
+
+   constructor(http: LHttp, nns: NzNotificationService) {
     super(http, nns);
   }
-    /**
+      /**
      * 
-     * @param year 年份
+     * @param
      * @returns 
-     * @memberof PlanCheckApi
+     * @memberof TourMarkApi
      */
-    getlist(year){
-        const params=new HttpParams().set('year',year);
-         return this.get('/kpicheck/list',{params});
+    getMarkLists(){
+         return this.get('/tourmark/list');
     }
 }

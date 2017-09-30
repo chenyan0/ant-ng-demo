@@ -29,11 +29,10 @@ export class MyPlanComponent implements OnInit {
 
   _refreshData() {
     this._loading = true;
-    console.log(this._current);
     this.NormApi.getNorms(this._current, this._pageSize).subscribe((res: any) => {
       this._loading = false;
       this._total=200;
-      this._dataSet = res.data.data;
+      this._dataSet = res.data;
       this._displayData = this._dataSet;
     })
   }

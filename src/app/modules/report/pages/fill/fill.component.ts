@@ -28,13 +28,7 @@ export class FillComponent implements OnInit {
     for (const i in this.fillReportForm.controls) {
       this.fillReportForm.controls[i].markAsDirty();
     }  
-    this.api.save(this.getFormControl('userName').value,this.getFormControl('department').value,
-    this.getFormControl('post').value,
-    this.getFormControl('fillTime').value,
-    this.getFormControl('gwrz').value,
-    this.getFormControl('gzyj').value,
-    this.getFormControl('gzjh').value,
-    ).subscribe((res:any)=>{
+    this.api.save(this.fillReportForm.value).subscribe((res:any)=>{
       if(res){
         this.nms.success('报告提交成功！');
       }
@@ -42,12 +36,12 @@ export class FillComponent implements OnInit {
   }
   getDepts(){
       this.api.getDepts().subscribe((res: any) =>{
-        this.searchDepts =res.data.data;   
+        this.searchDepts =res.data;   
       })
   }
   getPosts(){
       this.api.getPosts().subscribe((res: any) =>{
-        this.searchPosts =res.data.data;   
+        this.searchPosts =res.data;   
       })
   }
     /**
