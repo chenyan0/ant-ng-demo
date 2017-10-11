@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute,Router } from "@angular/router";
 import { HttpClient } from "@angular/common/http";
 @Component({
     selector: 'check-detail',
@@ -11,9 +11,12 @@ export class CheckDeatilComponent implements OnInit {
     item:{};
     constructor(
         private http:HttpClient,
-        private route:ActivatedRoute
+        private route:ActivatedRoute,
+        private router:Router
     ) {}
-
+gotoHeroes() {
+  this.router.navigate(['/kpi/plancheck']);
+}
     ngOnInit() { 
         //  this.http.getItem().subscribe(()=>{
 
