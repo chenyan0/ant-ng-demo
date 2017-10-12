@@ -1,3 +1,11 @@
-<div echarts [options]="chartOption" class="demo-chart demo-chart-1"></div>
-<div echarts [options]="chartOption2" [dataset]="dataset" class="demo-chart demo-chart-2"></div>
-<div echarts [options]="chartOption3" [loading]="chartLoading" class="demo-chart demo-chart-3"></div>  
+<div nz-row [nzGutter]="8">
+  <div nz-col class="gutter-row" [nzSpan]="12">
+    <div echarts [options]="chartOption" class="demo-chart demo-chart-1"></div>
+  </div>
+  <div nz-col class="gutter-row" [nzSpan]="12">
+    <div echarts [options]="chartOption2" [loading]="chartLoading" class="demo-chart demo-chart-2"></div>
+  </div>
+  <div nz-col class="gutter-row" [nzSpan]="12">
+    <div echarts [options]="chartOption3"  [dataset]="dataset"  class="demo-chart demo-chart-3"></div>
+  </div>
+</div>

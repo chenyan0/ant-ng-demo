@@ -13,11 +13,7 @@
       <button nz-button [nzType]="'primary'">
         <span>提交报告</span>
         </button>
-      <button nz-button [nzType]="'primary'" class="btnUpload">
-         <i class="anticon anticon-upload"></i>
-        <span>上传述职报告（PPT）</span>
-        <input type="file" #ppt (change)="load(ppt.value)">
-      </button>
+      <btn-upload [btnText]='btnString'></btn-upload>
     </div>
     <h2 nz-col [nzSpan]="24">2017年半年述职报告</h2>
     <div nz-col [nzSpan]="24"></div>

@@ -28,12 +28,13 @@
         </ul>
       </li>
     </ul>
-  </nz-sider>
+  </nz-sider>  
   <nz-layout>
     <nz-header style="background: #fff; padding:0;">
       <i class="anticon trigger" [class.anticon-menu-fold]="!isCollapsed" [class.anticon-menu-unfold]="isCollapsed" (click)="isCollapsed=!isCollapsed"></i>
       <div class="head-r">
 
+       <nz-avatar nzIcon="user" style="background-color:#108ee9;vertical-align: middle;"></nz-avatar>
       <span>欢迎回来 <b>123123!</b></span>
       <nz-tooltip nzTitle="登出" nzPlacement="left" (click)="onLogout()">
         <i nz-tooltip class="anticon trigger anticon-logout"></i>

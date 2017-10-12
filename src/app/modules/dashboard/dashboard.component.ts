@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
       220
     ]
   ];
-  chartOption2 = {
+  chartOption3 = {
     "color": ["#3398DB"],
     "tooltip": {
       "trigger": "axis",
@@ -51,31 +51,15 @@ export class DashboardComponent implements OnInit {
       {
         "name": "直接访问",
         "type": "bar",
-        "barWidth": "60%"
+        "barWidth": "30%"
       }
     ]
   }
   chartLoading = false;
-  chartOption3 = {
+  chartOption2 = {
     "tooltip": {
       "trigger": "item",
       "formatter": "{a} <br/>{b}: {c} ({d}%)"
-    },
-    "legend": {
-      "orient": "vertical",
-      "x": "left",
-      "data": [
-        "直达",
-        "营销广告",
-        "搜索引擎",
-        "邮件营销",
-        "联盟广告",
-        "视频广告",
-        "百度",
-        "谷歌",
-        "必应",
-        "其他"
-      ]
     },
     "series": [
       {
@@ -132,26 +116,7 @@ export class DashboardComponent implements OnInit {
             "value": 234,
             "name": "联盟广告"
           },
-          {
-            "value": 135,
-            "name": "视频广告"
-          },
-          {
-            "value": 1048,
-            "name": "百度"
-          },
-          {
-            "value": 251,
-            "name": "谷歌"
-          },
-          {
-            "value": 147,
-            "name": "必应"
-          },
-          {
-            "value": 102,
-            "name": "其他"
-          }
+
         ]
       }
     ]
@@ -164,7 +129,7 @@ export class DashboardComponent implements OnInit {
       trigger: 'axis'
     },
     legend: {
-      data: ['邮件营销', '联盟广告', '视频广告', '直接访问', '搜索引擎']
+      data: ['邮件营销', '联盟广告', '视频广告']
     },
     toolbox: {
       feature: {
@@ -172,8 +137,8 @@ export class DashboardComponent implements OnInit {
       }
     },
     grid: {
-      left: '3%',
-      right: '4%',
+      left: '0',
+      right: '14%',
       bottom: '3%',
       containLabel: true
     },
@@ -211,26 +176,8 @@ export class DashboardComponent implements OnInit {
         areaStyle: { normal: {} },
         data: [150, 232, 201, 154, 190, 330, 410]
       },
-      {
-        name: '直接访问',
-        type: 'line',
-        stack: '总量',
-        areaStyle: { normal: {} },
-        data: [320, 332, 301, 334, 390, 330, 320]
-      },
-      {
-        name: '搜索引擎',
-        type: 'line',
-        stack: '总量',
-        label: {
-          normal: {
-            show: true,
-            position: 'top'
-          }
-        },
-        areaStyle: { normal: {} },
-        data: [820, 932, 901, 934, 1290, 1330, 1320]
-      }
+
+
     ]
   }
 

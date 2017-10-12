@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+
 import {
   FormBuilder,
   FormGroup,
   Validators
 } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd';
-
+import { NzMessageService } from 'ng-zorro-antd';   
 import { ReportFillApi } from "app/service/api";
-
+import { BtnUploadComponent } from "app/components/btn-upload/btn-upload.componnet";
 @Component({
   selector: 'report-fill',
   templateUrl: 'fill.component.html',
@@ -15,6 +15,7 @@ import { ReportFillApi } from "app/service/api";
 })
 
 export class FillComponent implements OnInit {
+  btnString: string = '上传述职报告(PPT)';
   fillReportForm: FormGroup;
   _date = null;
   selectedDept;

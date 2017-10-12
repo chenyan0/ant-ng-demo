@@ -7,12 +7,7 @@ import { KpiPlanController } from './kpi/kpiplan.controller'
 import { UserController } from './user/user.controller'
 import { FillReportController } from './report/report-fill.controller'
 import { TourMarkController } from './tour/tour-mark.controller'
-const CONTROLLER=[ UserController,
-        KpiCheckController,
-        KpiPlanController,
-        FillReportController,
-        TourMarkController
-        ];
+
 @Module({
     controllers:[UserController,
         KpiCheckController,

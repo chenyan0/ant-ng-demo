@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { ShareModule } from '../share/share.module';
 import { CommonRoutesModule } from './common.routing';
-// import { UserApi } from "../service/api/user.api";
-
+// import { ComponentModule } from '../components/component.module';
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 @NgModule({
@@ -12,3 +11,4 @@ import { MainComponent } from './main/main.component';
     providers: [],
 })
 export class CommonModule { }
+  

@@ -10,7 +10,7 @@
     <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()">保存绩效计划</button>
     <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()">提交上级审核</button>
     <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()"><i class="anticon anticon-download"></i><span>下载导入模板</span></button>
-    <button nz-button [nzType]="'primary'" [nzLoading]="_operating" (click)="_operateData()" class="btnUpload"><i class="anticon anticon-upload"></i><span>导入年度计划</span></button>
+    <btn-upload [btnText]="btnString"></btn-upload>
   </div>
   <nz-table #nzTable  [nzAjaxData]="_dataSet" (nzPageIndexChange)="_refreshData()" (nzPageSizeChange)="_refreshData()"
       [nzShowSizeChanger]="true"

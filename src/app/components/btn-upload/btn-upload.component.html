@@ -1,0 +1,5 @@
+<button nz-button [nzType]="'primary'" class="btnUpload">
+         <i class="anticon anticon-upload"></i>
+        <span>{{btnText}}</span>
+        <input type="file" #ppt (change)="load(ppt.value)">
+      </button>

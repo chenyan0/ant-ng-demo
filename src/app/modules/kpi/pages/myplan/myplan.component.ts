@@ -5,12 +5,16 @@ import { NzModalService, NzModalSubject } from 'ng-zorro-antd';
 import { Norm, norms } from './data-model';
 import { NormApi } from "app/service/api";
 import { ModalOperateNormComponent } from '../../modals/modal-operate-norm/modal-operate-norm.component';
+
+import { BtnUploadComponent } from "app/components/btn-upload/btn-upload.componnet";
 @Component({
   selector: 'my-plan',
   templateUrl: 'myplan.component.html'
 })
 
 export class MyPlanComponent implements OnInit {
+
+  btnString:string='导入年度计划';
   norm: Norm;
   _allChecked = false;
   _indeterminate = false;

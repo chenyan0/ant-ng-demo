@@ -12,7 +12,7 @@ const COMPONENT=[MarkComponent];
        ShareModule,
        RouterModule.forChild(routes),
     ],
-    exports: [],   
+    exports: [RouterModule],   
     declarations: [COMPONENT],
     providers: [],
 })
